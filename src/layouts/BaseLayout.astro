@@ -35,17 +35,47 @@ const { title = "LastKey — Son dakika konaklamanı yakala" } = Astro.props;
       if (supportsFinePointer && cursorRing && cursorDot) {
         document.documentElement.classList.add("has-custom-cursor");
 
-        const setCursorState = (x, y) => {
+        const setDotState = (x, y) => {
           cursorDot.style.setProperty("--cursor-x", `${x}px`);
           cursorDot.style.setProperty("--cursor-y", `${y}px`);
+        };
+
+        const setRingState = (x, y) => {
           cursorRing.style.setProperty("--cursor-x", `${x}px`);
           cursorRing.style.setProperty("--cursor-y", `${y}px`);
         };
 
+        let targetX = window.innerWidth / 2;
+        let targetY = window.innerHeight / 2;
+        let ringX = targetX;
+        let ringY = targetY;
+        let rafId = 0;
+        const ease = 0.2;
+
+        const animateRing = () => {
+          ringX += (targetX - ringX) * ease;
+          ringY += (targetY - ringY) * ease;
+          setRingState(ringX, ringY);
+          rafId = window.requestAnimationFrame(animateRing);
+        };
+
+        setDotState(targetX, targetY);
+        setRingState(ringX, ringY);
+        rafId = window.requestAnimationFrame(animateRing);
+
         window.addEventListener("mousemove", (event) => {
-          setCursorState(event.clientX, event.clientY);
+          targetX = event.clientX;
+          targetY = event.clientY;
+          setDotState(targetX, targetY);
           cursorRing.classList.add("is-visible");
           cursorDot.classList.add("is-visible");
+        });
+
+        window.addEventListener("mouseout", (event) => {
+          if (event.relatedTarget === null) {
+            cursorRing.classList.remove("is-visible");
+            cursorDot.classList.remove("is-visible");
+          }
         });
 
         window.addEventListener("mousedown", () => {
@@ -65,6 +95,10 @@ const { title = "LastKey — Son dakika konaklamanı yakala" } = Astro.props;
           );
 
           cursorRing.classList.toggle("is-link", Boolean(interactive));
+        });
+
+        window.addEventListener("pagehide", () => {
+          window.cancelAnimationFrame(rafId);
         });
       }
     </script>
