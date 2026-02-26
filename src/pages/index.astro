@@ -139,6 +139,50 @@ import {
       });
     }
 
+    const pageGlow = document.querySelector(".page-glow");
+    if (pageGlow && canUsePointer) {
+      window.addEventListener("pointermove", (event) => {
+        const x = (event.clientX / window.innerWidth) * 100;
+        const y = (event.clientY / window.innerHeight) * 100;
+        pageGlow.style.setProperty("--glow-x", `${x.toFixed(2)}%`);
+        pageGlow.style.setProperty("--glow-y", `${y.toFixed(2)}%`);
+      });
+    }
+
+    const tiltCards = [
+      ...document.querySelectorAll(
+        [
+          ".value-rail li",
+          ".feature-lines li",
+          ".trust-band__item",
+          ".quote-stream__item",
+          ".faq__item",
+          ".host-feature",
+        ].join(","),
+      ),
+    ];
+
+    if (tiltCards.length && canUsePointer) {
+      const tiltMax = 4;
+
+      tiltCards.forEach((card) => {
+        card.classList.add("tilt-card");
+
+        card.addEventListener("pointermove", (event) => {
+          const rect = card.getBoundingClientRect();
+          const x = (event.clientX - rect.left) / rect.width - 0.5;
+          const y = (event.clientY - rect.top) / rect.height - 0.5;
+          const rx = y * -tiltMax;
+          const ry = x * tiltMax;
+          card.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-2px)`;
+        });
+
+        card.addEventListener("pointerleave", () => {
+          card.style.transform = "";
+        });
+      });
+    }
+
     const navLinks = [...document.querySelectorAll(".nav__link[href^='#']")];
     const sections = navLinks
       .map((link) => {

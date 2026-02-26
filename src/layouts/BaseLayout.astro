@@ -26,10 +26,12 @@ const { title = "LastKey — Son dakika konaklamanı yakala" } = Astro.props;
     <div class="scroll-progress" aria-hidden="true"></div>
     <div class="cursor-ring" aria-hidden="true"></div>
     <div class="cursor-dot" aria-hidden="true"></div>
+    <button class="to-top" type="button" aria-label="Yukarı çık">↑</button>
     <slot />
 
     <script>
       const scrollProgress = document.querySelector(".scroll-progress");
+      const toTopButton = document.querySelector(".to-top");
 
       if (scrollProgress) {
         const updateScrollProgress = () => {
@@ -42,6 +44,19 @@ const { title = "LastKey — Son dakika konaklamanı yakala" } = Astro.props;
         updateScrollProgress();
         window.addEventListener("scroll", updateScrollProgress, { passive: true });
         window.addEventListener("resize", updateScrollProgress);
+      }
+
+      if (toTopButton) {
+        const toggleToTop = () => {
+          toTopButton.classList.toggle("is-visible", window.scrollY > 520);
+        };
+
+        toggleToTop();
+        window.addEventListener("scroll", toggleToTop, { passive: true });
+
+        toTopButton.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
       }
 
       const supportsFinePointer = window.matchMedia("(pointer: fine)").matches;

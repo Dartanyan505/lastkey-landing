@@ -48,6 +48,38 @@ body {
   box-shadow: 0 4px 12px rgba(25, 102, 255, 0.24);
 }
 
+.to-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 90;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(21, 55, 114, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  color: #153b79;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(13, 34, 72, 0.16);
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+}
+
+.to-top.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.to-top:hover {
+  background: #174ba9;
+  color: #fff;
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -94,6 +126,14 @@ a {
   pointer-events: none;
   z-index: 0;
   filter: blur(12px);
+}
+
+.page-glow {
+  inset: auto;
+  left: var(--glow-x, 86%);
+  top: var(--glow-y, 78%);
+  transform: translate(-50%, -50%);
+  transition: left 0.35s ease, top 0.35s ease;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -835,6 +875,11 @@ p {
 .screens-gallery:focus-visible {
   outline: 2px solid rgba(23, 75, 169, 0.38);
   outline-offset: 4px;
+}
+
+.tilt-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
 }
 
 .screens-gallery__track {
