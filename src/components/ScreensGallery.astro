@@ -19,23 +19,27 @@ const { items = [] } = Astro.props;
       </div>
     </div>
 
-    <div class="screens-gallery" role="list" aria-label="Uygulama ekran galerisi" data-gallery>
-      {items.map((item) => (
-        <article class="screens-gallery__item" role="listitem">
-          <figure class="screens-gallery__phone">
-            <img
-              src={item.src}
-              alt={item.alt}
-              width="1080"
-              height="2460"
-              loading="lazy"
-              decoding="async"
-            />
-          </figure>
-          <h3>{item.title}</h3>
-          <p class="muted">{item.desc}</p>
-        </article>
-      ))}
+    <div class="screens-gallery" aria-label="Uygulama ekran galerisi" data-gallery>
+      <div class="screens-gallery__track" data-gallery-track>
+        {items.map((item) => (
+          <article class="screens-gallery__item">
+            <figure class="screens-gallery__phone">
+              <img
+                src={item.src}
+                alt={item.alt}
+                width="1080"
+                height="2460"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+            <div class="screens-gallery__copy">
+              <h3>{item.title}</h3>
+              <p class="muted">{item.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
@@ -44,26 +48,27 @@ const { items = [] } = Astro.props;
   const galleries = document.querySelectorAll("[data-gallery]");
 
   galleries.forEach((gallery) => {
+    const track = gallery.querySelector("[data-gallery-track]");
     const controls = gallery
       .closest(".container")
       ?.querySelector("[data-gallery-controls]");
 
-    if (!controls) return;
+    if (!controls || !track) return;
 
     const buttons = controls.querySelectorAll("[data-dir]");
+    const slides = track.querySelectorAll(".screens-gallery__item");
+    let currentIndex = 0;
+
+    const update = () => {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    };
 
     buttons.forEach((button) => {
       button.addEventListener("click", () => {
-        const firstItem = gallery.querySelector(".screens-gallery__item");
-        if (!firstItem) return;
-
-        const itemWidth = firstItem.getBoundingClientRect().width;
+        if (!slides.length) return;
         const dir = Number(button.getAttribute("data-dir")) || 1;
-
-        gallery.scrollBy({
-          left: dir * (itemWidth + 14),
-          behavior: "smooth",
-        });
+        currentIndex = (currentIndex + dir + slides.length) % slides.length;
+        update();
       });
     });
   });
