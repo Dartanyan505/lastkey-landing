@@ -12,14 +12,8 @@ const screenDetails = [
   <div class="container">
     <div class="section__head section__head--row">
       <div>
-        <p class="eyebrow">Ekran Akışı</p>
         <h2>Uygulamayı Yakından Gör</h2>
         <p class="muted">Aramadan rezervasyona uzanan deneyimi gerçek ekranlar üzerinden keşfet.</p>
-      </div>
-
-      <div class="gallery-controls" data-gallery-controls>
-        <button class="gallery-arrow" type="button" data-dir="-1" aria-label="Önceki ekran">←</button>
-        <button class="gallery-arrow" type="button" data-dir="1" aria-label="Sonraki ekran">→</button>
       </div>
     </div>
 
@@ -42,7 +36,6 @@ const screenDetails = [
             </figure>
 
             <div class="screens-gallery__copy">
-              <p class="screens-gallery__eyebrow">Ekran {String(index + 1).padStart(2, "0")}</p>
               <h3>{item.title}</h3>
               <p class="muted">{item.desc}</p>
 
@@ -59,6 +52,19 @@ const screenDetails = [
             </div>
           </article>
         ))}
+      </div>
+
+      <div class="gallery-controls" data-gallery-controls>
+        <button class="gallery-arrow" type="button" data-dir="-1" aria-label="Önceki ekran">
+          <svg class="gallery-arrow__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M14.5 6.5 9 12l5.5 5.5" />
+          </svg>
+        </button>
+        <button class="gallery-arrow" type="button" data-dir="1" aria-label="Sonraki ekran">
+          <svg class="gallery-arrow__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M9.5 6.5 15 12l-5.5 5.5" />
+          </svg>
+        </button>
       </div>
 
       <div class="screens-gallery__pager" data-gallery-pager>
@@ -80,7 +86,7 @@ const screenDetails = [
 
   galleries.forEach((gallery) => {
     const track = gallery.querySelector("[data-gallery-track]");
-    const controls = gallery.closest(".container")?.querySelector("[data-gallery-controls]");
+    const controls = gallery.querySelector("[data-gallery-controls]");
     const pager = gallery.querySelector("[data-gallery-pager]");
 
     if (!controls || !track) return;
