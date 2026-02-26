@@ -1,17 +1,20 @@
 ---
 const { steps = [] } = Astro.props;
 ---
-<section id="nasil-calisir" class="section section--alt">
+<section id="nasil-calisir" class="section section--alt section--timeline">
   <div class="container">
-    <div class="section__head">
-      <p class="eyebrow">Nasıl Çalışır?</p>
-      <h2>Dört adımda rezervasyon tamam</h2>
+    <div class="journey-head">
+      <div>
+        <p class="eyebrow">Nasıl Çalışır?</p>
+        <h2>Nasıl Çalışır?</h2>
+      </div>
+      <p class="muted">Birkaç adımda rezervasyonunu tamamla.</p>
     </div>
 
-    <ol class="timeline">
+    <ol class="journey">
       {steps.map((step, index) => (
-        <li class="timeline__item">
-          <span class="timeline__num">{index + 1}</span>
+        <li class="journey__step">
+          <span class="journey__pin">{index + 1}</span>
           <p>{step}</p>
         </li>
       ))}

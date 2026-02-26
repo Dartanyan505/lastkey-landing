@@ -1,12 +1,20 @@
 ---
 const { items = [] } = Astro.props;
+
+const screenDetails = [
+  ["Konum, tarih ve kişi sayısını tek ekranda gir.", "Filtreleri uygulayıp sonuçları anında güncelle.", "Fiyatı uygun oteli tek dokunuşla aç."],
+  ["Beğendiğin otelleri favorilere ekle.", "Fiyat ve puan değişimlerini daha rahat takip et.", "Karar vermeden önce seçeneklerini yan yana düşün."],
+  ["Oda tiplerini hızlıca karşılaştır.", "Kapasite ve fiyat farklarını tek bakışta gör.", "Sana uyan odayı seçip rezervasyona ilerle."],
+  ["Takıldığın anda canlı desteğe geç.", "Rezervasyon adımlarında anında yardım al.", "Kararını geciktirmeden işlemi tamamla."],
+];
 ---
-<section class="section section--alt">
+<section class="section section--alt section--gallery">
   <div class="container">
     <div class="section__head section__head--row">
       <div>
         <p class="eyebrow">Ekran Akışı</p>
-        <h2>Aramadan ödemeye kadar her adım sade ve hızlı</h2>
+        <h2>Uygulamayı Yakından Gör</h2>
+        <p class="muted">Aramadan rezervasyona uzanan deneyimi gerçek ekranlar üzerinden keşfet.</p>
       </div>
 
       <div class="gallery-controls" data-gallery-controls>
@@ -17,9 +25,12 @@ const { items = [] } = Astro.props;
 
     <div class="screens-gallery" data-gallery aria-label="Uygulama ekran galerisi">
       <div class="screens-gallery__track" data-gallery-track>
-        {items.map((item) => (
-          <article class="screens-gallery__item">
+        {items.map((item, index) => (
+          <article class="screens-gallery__item" data-slide>
             <figure class="screens-gallery__phone">
+              <div class="screens-gallery__phone-top" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
               <img
                 src={item.src}
                 alt={item.alt}
@@ -31,10 +42,33 @@ const { items = [] } = Astro.props;
             </figure>
 
             <div class="screens-gallery__copy">
+              <p class="screens-gallery__eyebrow">Ekran {String(index + 1).padStart(2, "0")}</p>
               <h3>{item.title}</h3>
               <p class="muted">{item.desc}</p>
+
+              <div class="screens-gallery__meta">
+                <span>Adım {index + 1}/{items.length}</span>
+                <span>Canlı deneyim</span>
+              </div>
+
+              <ul class="screens-gallery__details">
+                {(screenDetails[index] ?? screenDetails[0]).map((line) => (
+                  <li>{line}</li>
+                ))}
+              </ul>
             </div>
           </article>
+        ))}
+      </div>
+
+      <div class="screens-gallery__pager" data-gallery-pager>
+        {items.map((item, index) => (
+          <button
+            class="screens-gallery__dot"
+            type="button"
+            data-go={index}
+            aria-label={`${index + 1}. ekran: ${item.title}`}
+          ></button>
         ))}
       </div>
     </div>
@@ -47,15 +81,26 @@ const { items = [] } = Astro.props;
   galleries.forEach((gallery) => {
     const track = gallery.querySelector("[data-gallery-track]");
     const controls = gallery.closest(".container")?.querySelector("[data-gallery-controls]");
+    const pager = gallery.querySelector("[data-gallery-pager]");
 
     if (!controls || !track) return;
 
     const buttons = controls.querySelectorAll("[data-dir]");
-    const slides = track.querySelectorAll(".screens-gallery__item");
+    const slides = track.querySelectorAll("[data-slide]");
+    const dots = pager?.querySelectorAll("[data-go]") ?? [];
     let currentIndex = 0;
 
     const update = () => {
       track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("is-active", i === currentIndex);
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("is-active", i === currentIndex);
+        dot.setAttribute("aria-current", i === currentIndex ? "true" : "false");
+      });
     };
 
     buttons.forEach((button) => {
@@ -66,5 +111,16 @@ const { items = [] } = Astro.props;
         update();
       });
     });
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const next = Number(dot.getAttribute("data-go"));
+        if (Number.isNaN(next)) return;
+        currentIndex = next;
+        update();
+      });
+    });
+
+    update();
   });
 </script>

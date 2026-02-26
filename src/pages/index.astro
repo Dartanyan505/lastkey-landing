@@ -37,8 +37,8 @@ import {
 
   <main id="main">
     <Hero />
-    <ValueProps items={userValueProps} />
     <AppDownload />
+    <ValueProps items={userValueProps} />
     <ScreensGallery items={userScreenStory} />
     <Features items={userFeatures} />
     <HowUser steps={howUser} />
@@ -50,4 +50,69 @@ import {
   </main>
 
   <Footer />
+
+  <script>
+    const motionSafe = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealTargets = [
+      ...document.querySelectorAll(
+        [
+          ".hero__copy",
+          ".hero__visual",
+          ".value-intro",
+          ".value-rail li",
+          ".download-panel > div",
+          ".screens-gallery__item",
+          ".feature-spotlight",
+          ".feature-lines li",
+          ".journey__step",
+          ".host-intro",
+          ".host-panel",
+          ".trust-band__head",
+          ".trust-band__item",
+          ".quote-stream__item",
+          ".faq-layout > div:first-child",
+          ".faq__item",
+          ".final-cta > div",
+          ".footer__col",
+          ".footer__bottom",
+        ].join(","),
+      ),
+    ];
+
+    revealTargets.forEach((el, index) => {
+      el.classList.add("reveal-in");
+      el.style.setProperty("--reveal-delay", `${(index % 6) * 70}ms`);
+
+      if (el.matches(".hero__copy, .value-intro, .feature-spotlight, .trust-band__head, .faq-layout > div:first-child")) {
+        el.classList.add("reveal-left");
+      } else if (el.matches(".hero__visual, .host-panel, .final-cta__actions")) {
+        el.classList.add("reveal-right");
+      }
+    });
+
+    if (!motionSafe || !("IntersectionObserver" in window)) {
+      revealTargets.forEach((el) => el.classList.add("is-visible"));
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.16, rootMargin: "0px 0px -8% 0px" },
+      );
+
+      revealTargets.forEach((el) => {
+        const top = el.getBoundingClientRect().top;
+        if (top < window.innerHeight * 0.88) {
+          el.classList.add("is-visible");
+        } else {
+          observer.observe(el);
+        }
+      });
+    }
+  </script>
 </BaseLayout>

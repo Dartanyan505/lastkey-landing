@@ -1,21 +1,19 @@
 ---
 const { items = [] } = Astro.props;
 ---
-<section class="section section--alt">
+<section class="section section--alt section--testimonials">
   <div class="container">
-    <div class="section__head section__head--row">
-      <div>
-        <p class="eyebrow">Kullanıcı Yorumları</p>
-        <h2>Deneyenler LastKey'i neden seviyor?</h2>
-      </div>
-      <p class="muted">Gerçek kullanıcı yorumlarını yayına almadan önce doğrulama yapman önerilir.</p>
+    <div class="section__head">
+      <p class="eyebrow">Kullanıcı Yorumları</p>
+      <h2>Kullanıcılar ne diyor?</h2>
+      <p class="muted">Yer tutucu metinler (sonradan gerçek yorumlarla değiştir).</p>
     </div>
 
-    <div class="review-grid">
-      {items.map((item) => (
-        <figure class="review-card">
+    <div class="quote-stream">
+      {items.map((item, index) => (
+        <figure class={`quote-stream__item ${index % 2 ? "quote-stream__item--offset" : ""}`}>
           <blockquote>“{item.quote}”</blockquote>
-          <figcaption>{item.who}</figcaption>
+          <figcaption>— {item.who}</figcaption>
         </figure>
       ))}
     </div>

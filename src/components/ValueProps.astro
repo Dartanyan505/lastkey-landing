@@ -1,20 +1,23 @@
 ---
 const { items = [] } = Astro.props;
 ---
-<section id="kesfet" class="section section--tight">
+<section id="kesfet" class="section section--tight section--value">
   <div class="container">
-    <div class="section__head">
-      <p class="eyebrow">Neden LastKey?</p>
-      <h2>Plansız seyahatler için tasarlanmış modern rezervasyon akışı</h2>
-    </div>
+    <div class="value-layout">
+      <div class="value-intro">
+        <p class="eyebrow">Neden LastKey?</p>
+        <h2>Son dakika indirimli odayı hızlıca bul, güvenle rezerve et.</h2>
+        <p class="muted">LastKey, kullanıcıya indirimli oda bulmayı; otele boş odadan gelir üretmeyi sağlar.</p>
+      </div>
 
-    <div class="value-grid">
-      {items.map((item) => (
-        <article class="value-card">
-          <span class="value-card__dot" aria-hidden="true"></span>
-          <p>{item}</p>
-        </article>
-      ))}
+      <ol class="value-rail">
+        {items.map((item, index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <p>{item}</p>
+          </li>
+        ))}
+      </ol>
     </div>
   </div>
 </section>

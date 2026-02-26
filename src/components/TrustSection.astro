@@ -1,20 +1,23 @@
 ---
 const { items = [] } = Astro.props;
 ---
-<section class="section">
+<section class="section section--trust">
   <div class="container">
-    <div class="section__head">
-      <p class="eyebrow">Güven</p>
-      <h2>Hem kullanıcı hem işletme için kontrollü rezervasyon altyapısı</h2>
-    </div>
+    <div class="trust-band">
+      <div class="trust-band__head">
+        <p class="eyebrow">Güven</p>
+        <h2>Fiyat avantajı ve güven bir arada</h2>
+        <p class="muted">Kullanıcı için indirimli oda seçenekleri, otel için boş odadan gelir modeli.</p>
+      </div>
 
-    <div class="trust-grid">
-      {items.map((item) => (
-        <article class="trust-card">
-          <span aria-hidden="true">◆</span>
-          <p>{item}</p>
-        </article>
-      ))}
+      <div class="trust-band__list">
+        {items.map((item, index) => (
+          <article class="trust-band__item">
+            <span aria-hidden="true">0{index + 1}</span>
+            <p>{item}</p>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
