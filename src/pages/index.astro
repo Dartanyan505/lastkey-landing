@@ -3,8 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Hero from "../components/Hero.astro";
 import ValueProps from "../components/ValueProps.astro";
+import AppDownload from "../components/AppDownload.astro";
 import ScreensGallery from "../components/ScreensGallery.astro";
 import Features from "../components/Features.astro";
+import HowUser from "../components/HowUser.astro";
 import HostSection from "../components/HostSection.astro";
 import TrustSection from "../components/TrustSection.astro";
 import Testimonials from "../components/Testimonials.astro";
@@ -17,6 +19,7 @@ import {
   userValueProps,
   userScreenStory,
   userFeatures,
+  howUser,
   hostFeatures,
   howHost,
   trust,
@@ -28,13 +31,17 @@ import {
 <BaseLayout>
   <a class="skip" href="#main">İçeriğe geç</a>
 
+  <div class="page-glow" aria-hidden="true"></div>
+
   <Nav nav={nav} />
 
   <main id="main">
     <Hero />
     <ValueProps items={userValueProps} />
+    <AppDownload />
     <ScreensGallery items={userScreenStory} />
     <Features items={userFeatures} />
+    <HowUser steps={howUser} />
     <HostSection features={hostFeatures} steps={howHost} />
     <TrustSection items={trust} />
     <Testimonials items={testimonials} />

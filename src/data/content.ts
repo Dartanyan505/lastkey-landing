@@ -1,100 +1,94 @@
 export const nav = [
   { label: "Keşfet", href: "#kesfet" },
+  { label: "Nasıl Çalışır?", href: "#nasil-calisir" },
   { label: "Otel Sahipleri", href: "#otel-sahipleri" },
-  { label: "Destek", href: "#destek" },
   { label: "SSS", href: "#sss" },
 ];
 
 export const userValueProps = [
-  "Son dakika aramada indirimli oda seçeneklerine hızlıca ulaş.",
-  "Konum, tarih, kişi sayısı ve bütçene göre hızlıca filtrele.",
-  "İndirimli odaları karşılaştır, en uygun oteli seç.",
-  "Güvenli ödeme altyapısıyla rezervasyonunu dakikalar içinde tamamla.",
-  "İstersen kupon kodunu ekle, fiyatı daha da düşür.",
+  "Konuma göre en yakın ve indirimli seçenekleri aynı listede gör.",
+  "Fiyat, puan ve mesafeyi tek bakışta karşılaştır.",
+  "Son dakika uygun oda bulup dakikalar içinde rezervasyon tamamla.",
+  "Güvenli ödeme adımıyla hızlı ve sorunsuz işlem yap.",
+  "Canlı destek ile rezervasyon sırasında anında yardım al.",
+  "Favori otellerini kaydedip fırsatları kaçırma.",
 ];
 
 export const userFeatures = [
-  { title: "İndirimli oda listesi", desc: "Son dakika aramada indirimli oda seçeneklerini öne çıkarır." },
-  { title: "Konuma göre keşif", desc: "Yakınındaki otelleri ve indirimli odaları otomatik öne çıkarır." },
-  { title: "Harita görünümü", desc: "Otelleri harita üstünde inceleyip konum avantajını görürsün." },
-  { title: "Akıllı filtreler", desc: "Fiyat aralığı, yıldız, ilçe ve otel özelliklerine göre arama." },
-  { title: "Fırsat etiketleri", desc: "En iyi fiyat veren oteller “Tavsiye Edilen” veya “Fırsat Otel” etiketi alır." },
-  { title: "Favoriler", desc: "Beğendiğin otelleri kaydet, sonra kolayca geri dön." },
-  { title: "Yorumlar", desc: "Misafir deneyimlerini oku; kararını hızlı ve güvenli ver." },
+  { title: "Canlı fırsat akışı", desc: "İndirimli odalar güncel fiyatlarla anlık olarak listelenir." },
+  { title: "Akıllı filtreleme", desc: "Bütçe, semt, yıldız ve puana göre sonuçları saniyede daralt." },
+  { title: "Harita odaklı keşif", desc: "Otelleri haritada konum avantajıyla birlikte değerlendir." },
+  { title: "Detaylı oda görünümü", desc: "Oda özelliklerini net fotoğraflar ve açıklamalarla incele." },
+  { title: "Favori & takip", desc: "Karar vermeden önce seçeneklerini kaydet, yeniden kıyasla." },
+  { title: "Yorum doğrulama", desc: "Misafir geri bildirimleriyle güvenli karar süreci oluştur." },
 ];
 
 export const userScreenStory = [
   {
     src: "/screen-shots/ana-sayfa.jpg",
     alt: "LastKey ana sayfa ekranı",
-    title: "Tek ekranda hızlı başlangıç",
-    desc: "Konum, tarih ve kişi sayısını seçip saniyeler içinde uygun otelleri listele.",
-    reverse: false,
+    title: "Hızlı başlangıç",
+    desc: "Konum, tarih ve kişi bilgilerini girerek en uygun seçenekleri anında listele.",
   },
   {
     src: "/screen-shots/favori-oteller.jpg",
     alt: "LastKey favori oteller ekranı",
-    title: "Karar sürecini kolaylaştır",
-    desc: "Beğendiğin otelleri favorilere at, fiyat ve puanları daha rahat karşılaştır.",
-    reverse: true,
+    title: "Karşılaştırmalı karar",
+    desc: "Favoriye aldığın otelleri fiyat ve puana göre daha kolay karşılaştır.",
   },
   {
     src: "/screen-shots/odalar.jpg",
     alt: "LastKey odalar ekranı",
-    title: "Odayı seç, devam et",
-    desc: "Müsait odaları detaylarıyla gör, sana uyan seçeneği tek adımda ayır.",
-    reverse: false,
+    title: "Detaylı oda seçimi",
+    desc: "Müsait oda tiplerini filtreleyip sana en uygun seçeneği hızlıca belirle.",
   },
   {
     src: "/screen-shots/canli-destek.jpg",
     alt: "LastKey canlı destek ekranı",
-    title: "Gerekirse anında destek al",
-    desc: "Rezervasyon sırasında takıldığın noktada canlı destek üzerinden hızlıca yardım al.",
-    reverse: true,
+    title: "Anlık destek",
+    desc: "Rezervasyon sırasında takıldığın noktada destek ekibine doğrudan ulaş.",
   },
 ];
 
 export const howUser = [
-  "Konumunu aç veya şehir/ilçe seç.",
-  "Tarih ve kişi sayısını belirle, filtrelerini uygula.",
-  "İndirimli odaları karşılaştır, otelini seç.",
-  "Güvenli ödeme ile rezervasyonu tamamla.",
+  "Konumunu seç, tarih ve kişi sayısını belirle.",
+  "Filtrelerle bütçene ve beklentine uygun otelleri listele.",
+  "Oda ve fiyat detaylarını karşılaştırıp karar ver.",
+  "Ödemeyi tamamla ve rezervasyon onayını anında al.",
 ];
 
 export const hostFeatures = [
-  { title: "Kolay listeleme", desc: "Otel bilgileri, fotoğraflar ve oda tiplerini düzenle." },
-  { title: "Boş odayı değerlendir", desc: "Normalde boş kalacak odaları indirimli fiyatla satarak gelir üret." },
-  { title: "Esnek fiyat kontrolü", desc: "İndirim oranını sen belirle; doluluk ve fiyat dengesini sen yönet." },
-  { title: "Daha görünür ol", desc: "Rekabetçi fiyat veren oteller listede daha üstte görünür." },
-  { title: "Müsaitlik yönetimi", desc: "Tarihe göre kontenjanı kontrol et, kısa konaklamalara hazır ol." },
-  { title: "Rezervasyon yönetimi", desc: "Gelen rezervasyonları tek panelden hızlıca yönet." },
+  { title: "Hızlı onboarding", desc: "Otel profilini kısa sürede oluştur, satışa hemen başla." },
+  { title: "Esnek fiyat politikası", desc: "İndirim oranlarını doluluk hedeflerine göre dinamik yönet." },
+  { title: "Kontenjan yönetimi", desc: "Boş odaları tarih bazlı açıp kapatarak kapasiteyi optimize et." },
+  { title: "Rezervasyon paneli", desc: "Gelen rezervasyonları tek ekranda takip et ve onayla." },
+  { title: "Kampanya görünürlüğü", desc: "Rekabetçi fiyat veren tesisler listede daha fazla görünürlük alır." },
+  { title: "Operasyonel destek", desc: "Süreç boyunca platform ekibiyle hızlı iletişim kur." },
 ];
 
 export const howHost = [
-  "Otelini başvuruyla ekle, profilini oluştur.",
-  "Oda tiplerini, müsaitliği ve fiyatlarını tanımla.",
-  "Boş odalar için indirim oranını belirle.",
-  "Rezervasyon al, boş kalan odalardan kâr üret.",
+  "Başvuru formunu doldur ve işletme bilgilerini paylaş.",
+  "Oda tiplerini, fotoğrafları ve fiyat aralığını tanımla.",
+  "Boş odalar için son dakika fiyat stratejini belirle.",
+  "Rezervasyonları al ve doluluğunu kontrollü artır.",
 ];
 
 export const trust = [
-  "Ödeme işlemleri güvenli ödeme altyapısı üzerinden yürütülür.",
-  "Son dakika kullanıcıları için indirimli oda listesi standart olarak sunulur.",
-  "Destek ekibi, rezervasyon süreçlerinde yardımcı olur.",
+  "Ödeme adımları güvenli altyapı üzerinden yürütülür.",
+  "Kullanıcı ve tesis tarafında açık fiyatlandırma sunulur.",
+  "Destek ekibi rezervasyon sürecinde aktif şekilde yardımcı olur.",
 ];
 
 export const testimonials = [
-  { quote: "Son dakika girdiğimde indirimli oda seçeneklerini hızlıca görebiliyorum.", who: "[İsim]" },
-  { quote: "Kısa konaklamada uygun fiyatı hızlıca yakaladım.", who: "[İsim]" },
-  { quote: "Boş kalacak odaları indirimli satıp ekstra gelir elde ettim.", who: "[Otel Sahibi, İşletme Adı]" },
+  { quote: "Şehirde geç saatte uygun oda bulmak eskisine göre çok daha kolaylaştı.", who: "Sena K." },
+  { quote: "Son dakika seyahatlerde fiyat/performans açısından ciddi fark yarattı.", who: "Mert A." },
+  { quote: "Boş odaları değerlendirmemizi hızlandırdı, doluluk oranımız arttı.", who: "Ege Otel Yönetimi" },
 ];
 
 export const faqs = [
-  { q: "LastKey nedir?", a: "LastKey, son dakika konaklama için otel keşfi ve rezervasyonu tek yerde toplayan bir platformdur." },
-  { q: "Kullanıcı tarafında temel avantaj ne?", a: "Son dakika aramalarda indirimli oda seçenekleri tek ekranda sunulur; fırsat yakalamak kolaylaşır." },
-  { q: "Nasıl rezervasyon yaparım?", a: "Konum/şehir seç, tarih ve kişi sayısını belirle, indirimli odaları karşılaştırıp ödeme adımlarını tamamla." },
-  { q: "Otel sahibi için avantaj ne?", a: "Normalde boş kalabilecek odaları daha uygun fiyatla satar, doluluğu ve geliri artırır." },
-  { q: "İndirim oranını kim belirler?", a: "Otel sahibi kendi fiyat ve indirim stratejisini yönetir." },
-  { q: "Kupon kodu kullanabiliyor muyum?", a: "Uygun kampanyalarda kupon kodunu ekleyebilirsin." },
-  { q: "Otelimi nasıl listeleyebilirim?", a: "“Otelimi Listele” ile başvurup işletme bilgilerini paylaşarak başlayabilirsin." },
+  { q: "LastKey hangi şehirlerde aktif?", a: "Platform şehir bazlı genişliyor; aktif bölgeleri uygulama içinden güncel olarak görebilirsin." },
+  { q: "Rezervasyon onayı ne kadar sürede gelir?", a: "Ödeme tamamlandığında rezervasyon onayı genellikle saniyeler içinde oluşturulur." },
+  { q: "Otelimi ne kadar sürede yayına alabilirim?", a: "Başvuru ve doğrulama sonrası çoğu tesis kısa sürede satışa açılabilir." },
+  { q: "İptal ve iade koşulları nerede yer alıyor?", a: "Detaylı kurallar İptal ve İade Politikası sayfasında açık biçimde belirtilir." },
+  { q: "Destek ekibine nasıl ulaşırım?", a: "Uygulama içi destek alanı ve e-posta üzerinden ekibe doğrudan ulaşabilirsin." },
 ];

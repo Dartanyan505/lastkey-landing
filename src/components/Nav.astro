@@ -5,18 +5,18 @@ const { nav = [] } = Astro.props;
   <div class="container nav__inner">
     <a class="brand" href="/" aria-label="LastKey ana sayfa">
       <img class="brand__logo" src="/image.png" alt="LastKey" width="1600" height="444" />
-      <span class="brand__tag">Plansız seyahatlerin anahtarı</span>
+      <span class="brand__tag">Son Dakika Otel Platformu</span>
     </a>
 
     <nav class="nav__links" aria-label="Ana menü">
-      {nav.map((i) => (
-        <a class="nav__link" href={i.href}>{i.label}</a>
+      {nav.map((item) => (
+        <a class="nav__link" href={item.href}>{item.label}</a>
       ))}
     </nav>
 
     <div class="nav__cta">
-      <a class="btn btn--ghost" href="/basvuru-gonder">Başvuru Gönder</a>
-      <a class="btn" href="#kesfet">Otelleri Gör</a>
+      <a class="btn btn--ghost" href="/basvuru-gonder">Otel Başvurusu</a>
+      <a class="btn" href="#kesfet">Keşfet</a>
     </div>
   </div>
 </header>
