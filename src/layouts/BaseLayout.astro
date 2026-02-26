@@ -23,6 +23,50 @@ const { title = "LastKey — Son dakika konaklamanı yakala" } = Astro.props;
     />
   </head>
   <body>
+    <div class="cursor-ring" aria-hidden="true"></div>
+    <div class="cursor-dot" aria-hidden="true"></div>
     <slot />
+
+    <script>
+      const supportsFinePointer = window.matchMedia("(pointer: fine)").matches;
+      const cursorRing = document.querySelector(".cursor-ring");
+      const cursorDot = document.querySelector(".cursor-dot");
+
+      if (supportsFinePointer && cursorRing && cursorDot) {
+        document.documentElement.classList.add("has-custom-cursor");
+
+        const setCursorState = (x, y) => {
+          cursorDot.style.setProperty("--cursor-x", `${x}px`);
+          cursorDot.style.setProperty("--cursor-y", `${y}px`);
+          cursorRing.style.setProperty("--cursor-x", `${x}px`);
+          cursorRing.style.setProperty("--cursor-y", `${y}px`);
+        };
+
+        window.addEventListener("mousemove", (event) => {
+          setCursorState(event.clientX, event.clientY);
+          cursorRing.classList.add("is-visible");
+          cursorDot.classList.add("is-visible");
+        });
+
+        window.addEventListener("mousedown", () => {
+          cursorRing.classList.add("is-down");
+        });
+
+        window.addEventListener("mouseup", () => {
+          cursorRing.classList.remove("is-down");
+        });
+
+        window.addEventListener("mouseover", (event) => {
+          const target = event.target;
+          if (!(target instanceof Element)) return;
+
+          const interactive = target.closest(
+            "a, button, summary, input, textarea, select, .hero-phone, [data-go], [data-dir]",
+          );
+
+          cursorRing.classList.toggle("is-link", Boolean(interactive));
+        });
+      }
+    </script>
   </body>
 </html>

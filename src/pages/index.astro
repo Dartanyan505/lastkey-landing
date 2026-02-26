@@ -114,5 +114,29 @@ import {
         }
       });
     }
+
+    const heroVisual = document.querySelector(".hero__visual");
+    const heroPhones = heroVisual?.querySelectorAll(".hero-phone");
+    const canUsePointer = motionSafe && window.matchMedia("(pointer: fine)").matches;
+
+    if (heroVisual && heroPhones?.length && canUsePointer) {
+      const tiltMax = 8;
+
+      heroVisual.addEventListener("pointermove", (event) => {
+        const rect = heroVisual.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        const rx = y * -tiltMax;
+        const ry = x * tiltMax;
+
+        heroVisual.style.setProperty("--hero-tilt-x", `${rx.toFixed(2)}deg`);
+        heroVisual.style.setProperty("--hero-tilt-y", `${ry.toFixed(2)}deg`);
+      });
+
+      heroVisual.addEventListener("pointerleave", () => {
+        heroVisual.style.setProperty("--hero-tilt-x", "0deg");
+        heroVisual.style.setProperty("--hero-tilt-y", "0deg");
+      });
+    }
   </script>
 </BaseLayout>
