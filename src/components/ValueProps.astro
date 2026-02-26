@@ -1,0 +1,20 @@
+---
+const { items = [] } = Astro.props;
+---
+<section id="kesfet" class="section">
+  <div class="container">
+    <div class="section__head">
+      <h2>Son dakika indirimli odayı hızlıca bul, güvenle rezerve et.</h2>
+      <p class="muted">LastKey, kullanıcıya indirimli oda bulmayı; otele boş odadan gelir üretmeyi sağlar.</p>
+    </div>
+
+    <ul class="checks">
+      {items.map((t) => (
+        <li class="check">
+          <span class="check__icon" aria-hidden="true">✓</span>
+          <span>{t}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

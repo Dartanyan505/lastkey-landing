@@ -1,0 +1,20 @@
+---
+import "../styles/global.css";
+
+const { title = "LastKey — Son dakika konaklamanı yakala" } = Astro.props;
+---
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta
+      name="description"
+      content="Konumuna yakın otelleri keşfet, filtrele, haritada gör ve dakikalar içinde rezervasyonunu tamamla."
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

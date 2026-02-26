@@ -1,0 +1,20 @@
+---
+const { items = [] } = Astro.props;
+---
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__head">
+      <h2>İndirimli oda bulmayı hızlandıran özellikler</h2>
+      <p class="muted">Konum ve filtrelerle son dakika indirimli odaya saniyeler içinde ulaş.</p>
+    </div>
+
+    <div class="grid">
+      {items.map((f) => (
+        <article class="feat">
+          <h3>{f.title}</h3>
+          <p class="muted">{f.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

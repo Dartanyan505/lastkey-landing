@@ -1,0 +1,20 @@
+---
+const { items = [] } = Astro.props;
+---
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__head">
+      <h2>Kullanıcılar ne diyor?</h2>
+      <p class="muted">Yer tutucu metinler (sonradan gerçek yorumlarla değiştir).</p>
+    </div>
+
+    <div class="grid grid--3">
+      {items.map((t) => (
+        <figure class="quote">
+          <blockquote>“{t.quote}”</blockquote>
+          <figcaption class="muted">— {t.who}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

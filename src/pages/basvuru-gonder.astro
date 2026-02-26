@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="LastKey | Başvuru Gönder">
+  <header class="apply-header">
+    <div class="container apply-header__inner">
+      <a class="brand" href="/" aria-label="LastKey ana sayfa">
+        <img class="brand__logo" src="/image.png" alt="LastKey" width="1600" height="444" />
+      </a>
+      <a class="btn btn--ghost" href="/">Ana Sayfaya Dön</a>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container apply-page">
+      <div class="apply-page__head">
+        <h1>Başvuru Gönder</h1>
+        <p class="muted">
+          Otelini LastKey'e eklemek için aşağıdaki formu doldur. Ekibimiz en kısa sürede seninle iletişime geçer.
+        </p>
+      </div>
+
+      <form class="apply-form" action="#" method="post">
+        <label class="field">
+          <span>Otel Adı</span>
+          <input type="text" name="hotelName" placeholder="Örnek: Mavi Koy Hotel" required />
+        </label>
+
+        <label class="field">
+          <span>Yetkili Ad Soyad</span>
+          <input type="text" name="ownerName" placeholder="Ad Soyad" required />
+        </label>
+
+        <label class="field">
+          <span>E-posta</span>
+          <input type="email" name="email" placeholder="ornek@mail.com" required />
+        </label>
+
+        <label class="field">
+          <span>Telefon</span>
+          <input type="tel" name="phone" placeholder="05xx xxx xx xx" required />
+        </label>
+
+        <label class="field">
+          <span>Şehir / İlçe</span>
+          <input type="text" name="location" placeholder="Örnek: İstanbul / Beşiktaş" required />
+        </label>
+
+        <label class="field">
+          <span>Oda Sayısı</span>
+          <input type="number" min="1" name="roomCount" placeholder="Örnek: 24" required />
+        </label>
+
+        <label class="field field--full">
+          <span>Ek Not</span>
+          <textarea name="note" rows="5" placeholder="İstersen otelinle ilgili kısa bilgi ekleyebilirsin."></textarea>
+        </label>
+
+        <div class="apply-form__actions">
+          <button class="btn btn--lg" type="submit">Başvuru Gönder</button>
+          <a class="btn btn--lg btn--ghost" href="/">Vazgeç</a>
+        </div>
+      </form>
+    </div>
+  </main>
+</BaseLayout>

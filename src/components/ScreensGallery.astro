@@ -1,0 +1,70 @@
+---
+const { items = [] } = Astro.props;
+---
+<section class="section">
+  <div class="container">
+    <div class="section__head section__head--gallery">
+      <div>
+        <h2>Uygulamayı Yakından Gör</h2>
+        <p class="muted">Aramadan rezervasyona uzanan deneyimi gerçek ekranlar üzerinden keşfet.</p>
+      </div>
+
+      <div class="gallery-controls" data-gallery-controls>
+        <button class="gallery-arrow" type="button" data-dir="-1" aria-label="Önceki ekran">
+          ←
+        </button>
+        <button class="gallery-arrow" type="button" data-dir="1" aria-label="Sonraki ekran">
+          →
+        </button>
+      </div>
+    </div>
+
+    <div class="screens-gallery" role="list" aria-label="Uygulama ekran galerisi" data-gallery>
+      {items.map((item) => (
+        <article class="screens-gallery__item" role="listitem">
+          <figure class="screens-gallery__phone">
+            <img
+              src={item.src}
+              alt={item.alt}
+              width="1080"
+              height="2460"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <h3>{item.title}</h3>
+          <p class="muted">{item.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const galleries = document.querySelectorAll("[data-gallery]");
+
+  galleries.forEach((gallery) => {
+    const controls = gallery
+      .closest(".container")
+      ?.querySelector("[data-gallery-controls]");
+
+    if (!controls) return;
+
+    const buttons = controls.querySelectorAll("[data-dir]");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const firstItem = gallery.querySelector(".screens-gallery__item");
+        if (!firstItem) return;
+
+        const itemWidth = firstItem.getBoundingClientRect().width;
+        const dir = Number(button.getAttribute("data-dir")) || 1;
+
+        gallery.scrollBy({
+          left: dir * (itemWidth + 14),
+          behavior: "smooth",
+        });
+      });
+    });
+  });
+</script>

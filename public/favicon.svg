@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="200" height="200"
+     viewBox="0 0 200 200">
+
+  <g transform="translate(10,5)">
+    <path d="M 40 20 L 40 170 L 140 170 L 140 120 L 90 120 L 90 58 Z"
+          fill="#12c9b3"/>
+  </g>
+
+</svg>

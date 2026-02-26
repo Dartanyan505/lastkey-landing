@@ -1,0 +1,20 @@
+---
+const { items = [] } = Astro.props;
+---
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <h2>Fiyat avantajı ve güven bir arada</h2>
+      <p class="muted">Kullanıcı için indirimli oda seçenekleri, otel için boş odadan gelir modeli.</p>
+    </div>
+
+    <div class="grid grid--3">
+      {items.map((t) => (
+        <div class="trust">
+          <div class="trust__icon" aria-hidden="true">🔒</div>
+          <p>{t}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
