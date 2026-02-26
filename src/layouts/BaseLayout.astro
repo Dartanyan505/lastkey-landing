@@ -23,11 +23,27 @@ const { title = "LastKey — Son dakika konaklamanı yakala" } = Astro.props;
     />
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <div class="cursor-ring" aria-hidden="true"></div>
     <div class="cursor-dot" aria-hidden="true"></div>
     <slot />
 
     <script>
+      const scrollProgress = document.querySelector(".scroll-progress");
+
+      if (scrollProgress) {
+        const updateScrollProgress = () => {
+          const scrollTop = window.scrollY;
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = maxScroll > 0 ? Math.min(scrollTop / maxScroll, 1) : 0;
+          scrollProgress.style.setProperty("--scroll-progress", progress.toFixed(4));
+        };
+
+        updateScrollProgress();
+        window.addEventListener("scroll", updateScrollProgress, { passive: true });
+        window.addEventListener("resize", updateScrollProgress);
+      }
+
       const supportsFinePointer = window.matchMedia("(pointer: fine)").matches;
       const cursorRing = document.querySelector(".cursor-ring");
       const cursorDot = document.querySelector(".cursor-dot");

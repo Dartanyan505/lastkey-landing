@@ -95,6 +95,16 @@ const screenDetails = [
     const slides = track.querySelectorAll("[data-slide]");
     const dots = pager?.querySelectorAll("[data-go]") ?? [];
     let currentIndex = 0;
+    let autoTimer = 0;
+    let touchStartX = 0;
+    let touchDeltaX = 0;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const goTo = (nextIndex) => {
+      if (!slides.length) return;
+      currentIndex = (nextIndex + slides.length) % slides.length;
+      update();
+    };
 
     const update = () => {
       track.style.transform = `translateX(-${currentIndex * 100}%)`;
@@ -109,12 +119,23 @@ const screenDetails = [
       });
     };
 
+    const startAutoPlay = () => {
+      if (prefersReducedMotion || slides.length < 2) return;
+      window.clearInterval(autoTimer);
+      autoTimer = window.setInterval(() => {
+        goTo(currentIndex + 1);
+      }, 5000);
+    };
+
+    const stopAutoPlay = () => {
+      window.clearInterval(autoTimer);
+    };
+
     buttons.forEach((button) => {
       button.addEventListener("click", () => {
-        if (!slides.length) return;
         const dir = Number(button.getAttribute("data-dir")) || 1;
-        currentIndex = (currentIndex + dir + slides.length) % slides.length;
-        update();
+        goTo(currentIndex + dir);
+        startAutoPlay();
       });
     });
 
@@ -122,11 +143,69 @@ const screenDetails = [
       dot.addEventListener("click", () => {
         const next = Number(dot.getAttribute("data-go"));
         if (Number.isNaN(next)) return;
-        currentIndex = next;
-        update();
+        goTo(next);
+        startAutoPlay();
       });
     });
 
+    gallery.setAttribute("tabindex", "0");
+    gallery.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+        goTo(currentIndex + 1);
+        startAutoPlay();
+      } else if (event.key === "ArrowLeft") {
+        goTo(currentIndex - 1);
+        startAutoPlay();
+      }
+    });
+
+    gallery.addEventListener("mouseenter", stopAutoPlay);
+    gallery.addEventListener("mouseleave", startAutoPlay);
+    gallery.addEventListener("focusin", stopAutoPlay);
+    gallery.addEventListener("focusout", startAutoPlay);
+
+    gallery.addEventListener(
+      "touchstart",
+      (event) => {
+        touchStartX = event.touches[0]?.clientX ?? 0;
+        touchDeltaX = 0;
+        stopAutoPlay();
+      },
+      { passive: true },
+    );
+
+    gallery.addEventListener(
+      "touchmove",
+      (event) => {
+        const moveX = event.touches[0]?.clientX ?? touchStartX;
+        touchDeltaX = moveX - touchStartX;
+      },
+      { passive: true },
+    );
+
+    gallery.addEventListener(
+      "touchend",
+      () => {
+        if (Math.abs(touchDeltaX) > 40) {
+          goTo(currentIndex + (touchDeltaX < 0 ? 1 : -1));
+        }
+        touchDeltaX = 0;
+        startAutoPlay();
+      },
+      { passive: true },
+    );
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        stopAutoPlay();
+      } else {
+        startAutoPlay();
+      }
+    });
+
+    window.addEventListener("pagehide", stopAutoPlay);
+
     update();
+    startAutoPlay();
   });
 </script>

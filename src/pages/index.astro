@@ -138,5 +138,38 @@ import {
         heroVisual.style.setProperty("--hero-tilt-y", "0deg");
       });
     }
+
+    const navLinks = [...document.querySelectorAll(".nav__link[href^='#']")];
+    const sections = navLinks
+      .map((link) => {
+        const href = link.getAttribute("href");
+        if (!href) return null;
+        const section = document.querySelector(href);
+        return section instanceof HTMLElement ? section : null;
+      })
+      .filter(Boolean);
+
+    if (navLinks.length && sections.length && "IntersectionObserver" in window) {
+      const setActiveLink = (id) => {
+        navLinks.forEach((link) => {
+          link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
+        });
+      };
+
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+          if (visible?.target?.id) {
+            setActiveLink(visible.target.id);
+          }
+        },
+        { rootMargin: "-28% 0px -58% 0px", threshold: [0.15, 0.35, 0.6] },
+      );
+
+      sections.forEach((section) => sectionObserver.observe(section));
+    }
   </script>
 </BaseLayout>
