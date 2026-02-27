@@ -135,16 +135,6 @@ import {
       });
     }
 
-    const pageGlow = document.querySelector(".page-glow");
-    if (pageGlow && canUsePointer) {
-      window.addEventListener("pointermove", (event) => {
-        const x = (event.clientX / window.innerWidth) * 100;
-        const y = (event.clientY / window.innerHeight) * 100;
-        pageGlow.style.setProperty("--glow-x", `${x.toFixed(2)}%`);
-        pageGlow.style.setProperty("--glow-y", `${y.toFixed(2)}%`);
-      });
-    }
-
     const tiltCards = [
       ...document.querySelectorAll(
         [

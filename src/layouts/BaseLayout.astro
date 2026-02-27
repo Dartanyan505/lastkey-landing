@@ -127,7 +127,7 @@ const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
           if (!(target instanceof Element)) return;
 
           const interactive = target.closest(
-            "a, button, summary, input, textarea, select, .hero-phone, [data-go], [data-dir]",
+            "a, button, summary, input, textarea, select, [data-go], [data-dir]",
           );
 
           cursorRing.classList.toggle("is-link", Boolean(interactive));
