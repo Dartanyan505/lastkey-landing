@@ -149,6 +149,10 @@ a {
   text-decoration: none;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
 .container {
   width: min(1160px, calc(100% - 40px));
   margin: 0 auto;
@@ -578,8 +582,12 @@ p {
   border-bottom: 1px solid rgba(20, 40, 80, 0.12);
 }
 
-.nav + main {
-  padding-top: 88px;
+.nav ~ main {
+  padding-top: var(--nav-height, 88px);
+}
+
+main [id] {
+  scroll-margin-top: calc(var(--nav-height, 88px) + 16px);
 }
 
 .nav__inner {
@@ -644,14 +652,28 @@ p {
   display: none;
   align-items: center;
   justify-content: center;
+  min-width: 40px;
   min-height: 40px;
-  padding: 8px 14px;
+  padding: 8px 10px;
   border-radius: 999px;
   border: 1px solid rgba(18, 41, 80, 0.2);
   background: rgba(255, 255, 255, 0.85);
   color: #10203d;
   font-weight: 700;
   cursor: pointer;
+}
+
+.nav__toggle-icon {
+  display: inline-grid;
+  gap: 4px;
+}
+
+.nav__toggle-icon span {
+  display: block;
+  width: 16px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
 }
 
 .nav__toggle:focus-visible {
