@@ -2,28 +2,20 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Hero from "../components/Hero.astro";
-import ValueProps from "../components/ValueProps.astro";
 import AppDownload from "../components/AppDownload.astro";
 import ScreensGallery from "../components/ScreensGallery.astro";
-import Features from "../components/Features.astro";
 import HowUser from "../components/HowUser.astro";
 import HostSection from "../components/HostSection.astro";
-import TrustSection from "../components/TrustSection.astro";
-import Testimonials from "../components/Testimonials.astro";
 import FAQSection from "../components/FAQSection.astro";
 import FinalCTA from "../components/FinalCTA.astro";
 import Footer from "../components/Footer.astro";
 
 import {
   nav,
-  userValueProps,
   userScreenStory,
-  userFeatures,
   howUser,
   hostFeatures,
   howHost,
-  trust,
-  testimonials,
   faqs,
 } from "../data/content";
 ---
@@ -38,13 +30,9 @@ import {
   <main id="main">
     <Hero />
     <AppDownload />
-    <ValueProps items={userValueProps} />
     <ScreensGallery items={userScreenStory} />
-    <Features items={userFeatures} />
     <HowUser steps={howUser} />
     <HostSection features={hostFeatures} steps={howHost} />
-    <TrustSection items={trust} />
-    <Testimonials items={testimonials} />
     <FAQSection items={faqs} />
     <FinalCTA />
   </main>
