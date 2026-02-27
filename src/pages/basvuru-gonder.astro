@@ -62,6 +62,32 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           <a class="btn btn--lg btn--ghost" href="/">Vazgeç</a>
         </div>
       </form>
+
+      <section class="apply-page__support">
+        <h2>Destek Formu</h2>
+        <p class="muted">Başvuru dışında bir konuda desteğe ihtiyacın varsa aşağıdan bize ulaşabilirsin.</p>
+
+        <form class="support-form" action="#" method="post">
+          <label class="field">
+            <span>Ad Soyad</span>
+            <input type="text" name="supportName" placeholder="Ad Soyad" required />
+          </label>
+
+          <label class="field">
+            <span>E-posta</span>
+            <input type="email" name="supportEmail" placeholder="ornek@mail.com" required />
+          </label>
+
+          <label class="field field--full">
+            <span>Mesaj</span>
+            <textarea name="supportMessage" rows="4" placeholder="Destek talebini kısaca yaz." required></textarea>
+          </label>
+
+          <div class="support-form__actions">
+            <button class="btn btn--lg" type="submit">Mesaj Gönder</button>
+          </div>
+        </form>
+      </section>
     </div>
   </main>
 </BaseLayout>

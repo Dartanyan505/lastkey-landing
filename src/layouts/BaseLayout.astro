@@ -26,7 +26,11 @@ const { title = "LastKey — Son dakika konaklamanı yakala" } = Astro.props;
     <div class="scroll-progress" aria-hidden="true"></div>
     <div class="cursor-ring" aria-hidden="true"></div>
     <div class="cursor-dot" aria-hidden="true"></div>
-    <button class="to-top" type="button" aria-label="Yukarı çık">↑</button>
+    <button class="to-top up-arrow-btn" type="button" aria-label="Yukarı çık">
+      <svg class="up-arrow-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6.5 14.5 12 9l5.5 5.5" />
+      </svg>
+    </button>
     <slot />
 
     <script>

@@ -2,8 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Hero from "../components/Hero.astro";
+import ValueProps from "../components/ValueProps.astro";
 import AppDownload from "../components/AppDownload.astro";
 import ScreensGallery from "../components/ScreensGallery.astro";
+import Features from "../components/Features.astro";
 import HowUser from "../components/HowUser.astro";
 import HostSection from "../components/HostSection.astro";
 import FAQSection from "../components/FAQSection.astro";
@@ -12,7 +14,9 @@ import Footer from "../components/Footer.astro";
 
 import {
   nav,
+  userValueProps,
   userScreenStory,
+  userFeatures,
   howUser,
   hostFeatures,
   howHost,
@@ -29,8 +33,10 @@ import {
 
   <main id="main">
     <Hero />
+    <ValueProps items={userValueProps} />
     <AppDownload />
     <ScreensGallery items={userScreenStory} />
+    <Features items={userFeatures} />
     <HowUser steps={howUser} />
     <HostSection features={hostFeatures} steps={howHost} />
     <FAQSection items={faqs} />
@@ -49,18 +55,20 @@ import {
           ".value-intro",
           ".value-rail li",
           ".download-panel > div",
-          ".screens-gallery__item",
+          ".section--gallery .section__head",
+          ".screens-gallery",
+          ".screens-gallery__controlsbar",
           ".feature-spotlight",
           ".feature-lines li",
           ".journey__step",
           ".host-intro",
           ".host-panel",
-          ".trust-band__head",
-          ".trust-band__item",
-          ".quote-stream__item",
           ".faq-layout > div:first-child",
           ".faq__item",
           ".final-cta > div",
+          ".support-form",
+          ".support-to-top-wrap",
+          ".footer__brand",
           ".footer__col",
           ".footer__bottom",
         ].join(","),
@@ -71,9 +79,9 @@ import {
       el.classList.add("reveal-in");
       el.style.setProperty("--reveal-delay", `${(index % 6) * 70}ms`);
 
-      if (el.matches(".hero__copy, .value-intro, .feature-spotlight, .trust-band__head, .faq-layout > div:first-child")) {
+      if (el.matches(".hero__copy, .value-intro, .feature-spotlight, .faq-layout > div:first-child")) {
         el.classList.add("reveal-left");
-      } else if (el.matches(".hero__visual, .host-panel, .final-cta__actions")) {
+      } else if (el.matches(".hero__visual, .host-panel, .support-form")) {
         el.classList.add("reveal-right");
       }
     });
@@ -142,8 +150,6 @@ import {
         [
           ".value-rail li",
           ".feature-lines li",
-          ".trust-band__item",
-          ".quote-stream__item",
           ".faq__item",
           ".host-feature",
         ].join(","),
@@ -181,27 +187,41 @@ import {
       })
       .filter(Boolean);
 
-    if (navLinks.length && sections.length && "IntersectionObserver" in window) {
+    if (navLinks.length && sections.length) {
       const setActiveLink = (id) => {
         navLinks.forEach((link) => {
           link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
         });
       };
 
-      const sectionObserver = new IntersectionObserver(
-        (entries) => {
-          const visible = entries
-            .filter((entry) => entry.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      const updateActiveSection = () => {
+        const navHeight = document.querySelector(".nav")?.clientHeight ?? 0;
+        const offsetY = window.scrollY + navHeight + 24;
+        const isAtPageBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
 
-          if (visible?.target?.id) {
-            setActiveLink(visible.target.id);
+        if (isAtPageBottom) {
+          const lastSection = sections[sections.length - 1];
+          if (lastSection?.id) setActiveLink(lastSection.id);
+          return;
+        }
+
+        let activeSection = sections[0];
+
+        sections.forEach((section) => {
+          const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+          if (sectionTop <= offsetY) {
+            activeSection = section;
           }
-        },
-        { rootMargin: "-28% 0px -58% 0px", threshold: [0.15, 0.35, 0.6] },
-      );
+        });
 
-      sections.forEach((section) => sectionObserver.observe(section));
+        if (activeSection?.id) {
+          setActiveLink(activeSection.id);
+        }
+      };
+
+      updateActiveSection();
+      window.addEventListener("scroll", updateActiveSection, { passive: true });
+      window.addEventListener("resize", updateActiveSection);
     }
   </script>
 </BaseLayout>

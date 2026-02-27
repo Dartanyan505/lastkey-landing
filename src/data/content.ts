@@ -1,3 +1,26 @@
+import anaSayfaShot from "../screen-shots/ana-sayfa.jpg";
+import favoriOtellerShot from "../screen-shots/favori-oteller.jpg";
+import odalarShot from "../screen-shots/odalar.jpg";
+import canliDestekShot from "../screen-shots/canli-destek.jpg";
+import otelDetaylariShot from "../screen-shots/otel-detayları.jpg";
+import rezervasyonlarimShot from "../screen-shots/rezervasyonlarım.jpg";
+import yorumlarShot from "../screen-shots/yorumlar.jpg";
+import odemeOzetiShot from "../screen-shots/ödeme-özeti.jpg";
+
+const toImagePath = (asset: unknown) =>
+  typeof asset === "string" ? asset : (asset as { src?: string })?.src ?? "";
+
+export const screenShotPaths = [
+  anaSayfaShot,
+  favoriOtellerShot,
+  odalarShot,
+  canliDestekShot,
+  otelDetaylariShot,
+  rezervasyonlarimShot,
+  yorumlarShot,
+  odemeOzetiShot,
+].map(toImagePath).filter(Boolean);
+
 export const nav = [
   { label: "Keşfet", href: "#kesfet" },
   { label: "Otel Sahipleri", href: "#otel-sahipleri" },
@@ -25,31 +48,67 @@ export const userFeatures = [
 
 export const userScreenStory = [
   {
-    src: "/screen-shots/ana-sayfa.jpg",
-    alt: "LastKey ana sayfa ekranı",
-    title: "Tek ekranda hızlı başlangıç",
-    desc: "Konum, tarih ve kişi sayısını seçip saniyeler içinde uygun otelleri listele.",
+    src: toImagePath(anaSayfaShot),
+    alt: "LastKey ana sayfa ve arama ekranı",
+    title: "Hızlı arama ile başla",
+    desc: "Konum, gece ve kişi sayısını seçip uygun otelleri tek ekranda anında gör.",
+    details: ["Konum ve tarih seçimi tek panelde.", "Filtrelerle aramayı hızlıca daralt.", "Harita ve liste arasında geçiş yap."],
     reverse: false,
   },
   {
-    src: "/screen-shots/favori-oteller.jpg",
+    src: toImagePath(favoriOtellerShot),
     alt: "LastKey favori oteller ekranı",
-    title: "Karar sürecini kolaylaştır",
-    desc: "Beğendiğin otelleri favorilere at, fiyat ve puanları daha rahat karşılaştır.",
+    title: "Favorilere al, sonra karşılaştır",
+    desc: "Beğendiğin otelleri kaydedip fiyat, puan ve imkanları daha rahat kıyasla.",
+    details: ["Favori listeni tek ekranda takip et.", "İndirim etiketlerini kaçırmadan gör.", "Karar verirken seçeneklerini koru."],
     reverse: true,
   },
   {
-    src: "/screen-shots/odalar.jpg",
-    alt: "LastKey odalar ekranı",
-    title: "Odayı seç, devam et",
-    desc: "Müsait odaları detaylarıyla gör, sana uyan seçeneği tek adımda ayır.",
+    src: toImagePath(odalarShot),
+    alt: "LastKey oda seçenekleri ekranı",
+    title: "Oda tiplerini net karşılaştır",
+    desc: "Standart ve manzaralı gibi oda seçeneklerini fiyat ve kapasite bilgileriyle incele.",
+    details: ["Her oda için kapasite bilgisi var.", "Gece fiyatı ve toplam tutar net görünür.", "Tek dokunuşla seçip devam et."],
     reverse: false,
   },
   {
-    src: "/screen-shots/canli-destek.jpg",
-    alt: "LastKey canlı destek ekranı",
-    title: "Gerekirse anında destek al",
-    desc: "Rezervasyon sırasında takıldığın noktada canlı destek üzerinden hızlıca yardım al.",
+    src: toImagePath(canliDestekShot),
+    alt: "LastKey canlı destek konuşması",
+    title: "Canlı destek her adımda yanında",
+    desc: "Takıldığın anda uygulama içi sohbetten hızlıca yardım alarak işlemi yarıda bırakma.",
+    details: ["Sohbet akışı sade ve anlaşılır.", "Yeni talep açma aksiyonu net.", "Destekle çözüm süreci tek yerde."],
+    reverse: true,
+  },
+  {
+    src: toImagePath(otelDetaylariShot),
+    alt: "LastKey otel detay sayfası",
+    title: "Otel detaylarını tam gör",
+    desc: "Puan, açıklama, imkanlar ve fiyatı aynı sayfada görüp emin olarak seçim yap.",
+    details: ["İndirimli fiyat kartı öne çıkıyor.", "Otel imkanları etiketlerle listelenir.", "Yorumlara sayfa içinden erişirsin."],
+    reverse: false,
+  },
+  {
+    src: toImagePath(rezervasyonlarimShot),
+    alt: "LastKey rezervasyonlarım ekranı",
+    title: "Rezervasyonlarını yönet",
+    desc: "Yaklaşan, geçmiş ve iptal durumlarını filtreleyip rezervasyonlarını tek listede takip et.",
+    details: ["Rezervasyon durumu anlık görünür.", "Tarih, oda ve ödeme özeti tek kartta.", "Yaklaşan konaklamaları kaçırmazsın."],
+    reverse: true,
+  },
+  {
+    src: toImagePath(yorumlarShot),
+    alt: "LastKey yorumlar ve konaklama seçenekleri ekranı",
+    title: "Yorumları oku, doğru tercihi yap",
+    desc: "Gerçek kullanıcı yorumlarını okuyup ardından gecelere göre hızlıca oda kontrol et.",
+    details: ["Yorum puanı ve tarih bilgisi görünür.", "Gece seçenekleri aynı ekranda listelenir.", "Rezervasyon aksiyonu hemen altta."],
+    reverse: false,
+  },
+  {
+    src: toImagePath(odemeOzetiShot),
+    alt: "LastKey ödeme özeti ekranı",
+    title: "Ödeme özetini net tamamla",
+    desc: "Giriş-çıkış, misafir bilgisi ve toplam tutarı görüp güvenli ödeme adımını tamamla.",
+    details: ["Süre sayacıyla işlem takibi yapılır.", "Fiyat kırılımı açık şekilde listelenir.", "Bilgilendirme notlarıyla şeffaf süreç sunulur."],
     reverse: true,
   },
 ];

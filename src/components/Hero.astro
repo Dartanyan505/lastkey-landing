@@ -1,3 +1,9 @@
+---
+import { screenShotPaths } from "../data/content";
+
+const heroBackShot = screenShotPaths[1] ?? screenShotPaths[0] ?? "/screen-shots/ana-sayfa.jpg";
+const heroFrontShot = screenShotPaths[0] ?? "/screen-shots/ana-sayfa.jpg";
+---
 <section class="hero">
   <div class="container hero__grid">
     <div class="hero__copy">
@@ -8,6 +14,7 @@
 
       <div class="hero__cta">
         <a class="btn btn--lg" href="#otel-sahipleri">Otelimi Listele</a>
+        <a class="btn btn--lg btn--ghost" href="#kesfet">Otelleri Gör</a>
       </div>
 
     </div>
@@ -16,7 +23,7 @@
       <figure class="hero-phone hero-phone--back">
         <img
           class="hero-phone__shot"
-          src="/screen-shots/favori-oteller.jpg"
+          src={heroBackShot}
           alt="LastKey favori oteller ekranı"
           width="1080"
           height="2460"
@@ -27,7 +34,7 @@
       <figure class="hero-phone hero-phone--front">
         <img
           class="hero-phone__shot"
-          src="/screen-shots/ana-sayfa.jpg"
+          src={heroFrontShot}
           alt="LastKey uygulaması ana sayfa ekranı"
           width="1080"
           height="2460"

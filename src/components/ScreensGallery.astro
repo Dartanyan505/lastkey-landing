@@ -1,14 +1,7 @@
 ---
 const { items = [] } = Astro.props;
-
-const screenDetails = [
-  ["Konum, tarih ve kişi sayısını tek ekranda gir.", "Filtreleri uygulayıp sonuçları anında güncelle.", "Fiyatı uygun oteli tek dokunuşla aç."],
-  ["Beğendiğin otelleri favorilere ekle.", "Fiyat ve puan değişimlerini daha rahat takip et.", "Karar vermeden önce seçeneklerini yan yana düşün."],
-  ["Oda tiplerini hızlıca karşılaştır.", "Kapasite ve fiyat farklarını tek bakışta gör.", "Sana uyan odayı seçip rezervasyona ilerle."],
-  ["Takıldığın anda canlı desteğe geç.", "Rezervasyon adımlarında anında yardım al.", "Kararını geciktirmeden işlemi tamamla."],
-];
 ---
-<section id="kesfet" class="section section--alt section--gallery">
+<section class="section section--alt section--gallery">
   <div class="container">
     <div class="section__head section__head--row">
       <div>
@@ -40,12 +33,11 @@ const screenDetails = [
               <p class="muted">{item.desc}</p>
 
               <div class="screens-gallery__meta">
-                <span>Adım {index + 1}/{items.length}</span>
                 <span>Canlı deneyim</span>
               </div>
 
               <ul class="screens-gallery__details">
-                {(screenDetails[index] ?? screenDetails[0]).map((line) => (
+                {((item.details && item.details.length ? item.details : []) as string[]).map((line) => (
                   <li>{line}</li>
                 ))}
               </ul>
@@ -54,28 +46,30 @@ const screenDetails = [
         ))}
       </div>
 
-      <div class="gallery-controls" data-gallery-controls>
-        <button class="gallery-arrow" type="button" data-dir="-1" aria-label="Önceki ekran">
-          <svg class="gallery-arrow__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M14.5 6.5 9 12l5.5 5.5" />
-          </svg>
-        </button>
-        <button class="gallery-arrow" type="button" data-dir="1" aria-label="Sonraki ekran">
-          <svg class="gallery-arrow__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M9.5 6.5 15 12l-5.5 5.5" />
-          </svg>
-        </button>
-      </div>
+      <div class="screens-gallery__controlsbar">
+        <div class="screens-gallery__pager" data-gallery-pager>
+          {items.map((item, index) => (
+            <button
+              class="screens-gallery__dot"
+              type="button"
+              data-go={index}
+              aria-label={`${index + 1}. ekran: ${item.title}`}
+            ></button>
+          ))}
+        </div>
 
-      <div class="screens-gallery__pager" data-gallery-pager>
-        {items.map((item, index) => (
-          <button
-            class="screens-gallery__dot"
-            type="button"
-            data-go={index}
-            aria-label={`${index + 1}. ekran: ${item.title}`}
-          ></button>
-        ))}
+        <div class="gallery-controls" data-gallery-controls>
+          <button class="gallery-arrow" type="button" data-dir="-1" aria-label="Önceki ekran">
+            <svg class="gallery-arrow__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M14.5 6.5 9 12l5.5 5.5" />
+            </svg>
+          </button>
+          <button class="gallery-arrow" type="button" data-dir="1" aria-label="Sonraki ekran">
+            <svg class="gallery-arrow__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M9.5 6.5 15 12l-5.5 5.5" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -83,6 +77,14 @@ const screenDetails = [
 
 <script>
   const galleries = document.querySelectorAll("[data-gallery]");
+  const galleryVisibilityHandlers = [];
+
+  if (galleries.length) {
+    document.addEventListener("visibilitychange", () => {
+      const isHidden = document.hidden;
+      galleryVisibilityHandlers.forEach((handler) => handler(isHidden));
+    });
+  }
 
   galleries.forEach((gallery) => {
     const track = gallery.querySelector("[data-gallery-track]");
@@ -195,8 +197,8 @@ const screenDetails = [
       { passive: true },
     );
 
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
+    galleryVisibilityHandlers.push((isHidden) => {
+      if (isHidden) {
         stopAutoPlay();
       } else {
         startAutoPlay();
