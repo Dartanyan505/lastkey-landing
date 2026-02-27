@@ -1388,6 +1388,17 @@ p {
   grid-column: 1 / -1;
 }
 
+.hp-field {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
 .apply-page__support {
   margin-top: 26px;
 }

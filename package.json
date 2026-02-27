@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:file": "npm run build && node scripts/make-file-build.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

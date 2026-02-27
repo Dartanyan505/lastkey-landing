@@ -138,17 +138,36 @@ const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
         });
       }
 
+      const normalizedEndpoint = typeof formEndpoint === "string" ? formEndpoint.trim() : "";
       const bindableForms = [...document.querySelectorAll("form[data-form-kind]")];
       if (bindableForms.length) {
         bindableForms.forEach((form) => {
           const statusEl = form.querySelector("[data-form-status]");
           const submitButton = form.querySelector('button[type="submit"]');
+          const honeyInput = form.querySelector('input[name="_company"]');
 
           form.addEventListener("submit", async (event) => {
             event.preventDefault();
 
-            if (!formEndpoint) {
+            if (!normalizedEndpoint) {
               if (statusEl) statusEl.textContent = "Form endpoint ayarlı değil. (PUBLIC_FORM_ENDPOINT)";
+              return;
+            }
+
+            let endpointUrl;
+            try {
+              endpointUrl = new URL(normalizedEndpoint, window.location.origin).toString();
+            } catch {
+              if (statusEl) statusEl.textContent = "Form endpoint geçersiz görünüyor.";
+              return;
+            }
+
+            if (
+              honeyInput instanceof HTMLInputElement &&
+              honeyInput.value.trim().length > 0
+            ) {
+              if (statusEl) statusEl.textContent = "Talebin alındı. En kısa sürede dönüş yapacağız.";
+              form.reset();
               return;
             }
 
@@ -163,17 +182,26 @@ const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
             if (statusEl) statusEl.textContent = "";
 
             try {
-              const response = await fetch(formEndpoint, {
+              const controller = new AbortController();
+              const timeoutId = window.setTimeout(() => controller.abort(), 12000);
+              const response = await fetch(endpointUrl, {
                 method: "POST",
                 body: formData,
                 headers: { Accept: "application/json" },
+                signal: controller.signal,
               });
+              window.clearTimeout(timeoutId);
 
               if (!response.ok) throw new Error("request_failed");
               form.reset();
               if (statusEl) statusEl.textContent = "Talebin alındı. En kısa sürede dönüş yapacağız.";
-            } catch {
-              if (statusEl) statusEl.textContent = "Gönderim başarısız oldu. Lütfen tekrar dene.";
+            } catch (error) {
+              if (statusEl) {
+                statusEl.textContent =
+                  error instanceof DOMException && error.name === "AbortError"
+                    ? "İstek zaman aşımına uğradı. Lütfen tekrar dene."
+                    : "Gönderim başarısız oldu. Lütfen tekrar dene.";
+              }
             } finally {
               if (submitButton instanceof HTMLButtonElement) {
                 submitButton.disabled = false;

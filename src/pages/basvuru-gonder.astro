@@ -27,6 +27,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           </div>
 
           <form class="support-form" action="#" method="post" data-form-kind="hotel-application">
+              <input
+                class="hp-field"
+                type="text"
+                name="_company"
+                tabindex="-1"
+                autocomplete="off"
+                aria-hidden="true"
+              />
+
               <label class="field">
                 <span>Otel Adı</span>
                 <input type="text" name="hotelName" placeholder="Örnek: Mavi Koy Hotel" required />
@@ -78,6 +87,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             </div>
 
             <form class="support-form" action="#" method="post" data-form-kind="application-support">
+              <input
+                class="hp-field"
+                type="text"
+                name="_company"
+                tabindex="-1"
+                autocomplete="off"
+                aria-hidden="true"
+              />
+
               <label class="field">
                 <span>Ad Soyad</span>
                 <input type="text" name="supportName" placeholder="Ad Soyad" required />
