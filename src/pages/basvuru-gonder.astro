@@ -3,6 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="LastKey | Otelimi Listele">
+  <div class="page-glow" aria-hidden="true"></div>
+
   <header class="apply-header">
     <div class="container apply-header__inner">
       <a class="brand" href="/" aria-label="LastKey ana sayfa">
@@ -12,82 +14,92 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </div>
   </header>
 
-  <main class="section">
-    <div class="container apply-page">
-      <div class="apply-page__head">
-        <h1>Otelimi Listele</h1>
-        <p class="muted">
-          Otelini LastKey'e eklemek için aşağıdaki formu doldur. Ekibimiz en kısa sürede seninle iletişime geçer.
-        </p>
-      </div>
-
-      <form class="apply-form" action="#" method="post">
-        <label class="field">
-          <span>Otel Adı</span>
-          <input type="text" name="hotelName" placeholder="Örnek: Mavi Koy Hotel" required />
-        </label>
-
-        <label class="field">
-          <span>Yetkili Ad Soyad</span>
-          <input type="text" name="ownerName" placeholder="Ad Soyad" required />
-        </label>
-
-        <label class="field">
-          <span>E-posta</span>
-          <input type="email" name="email" placeholder="ornek@mail.com" required />
-        </label>
-
-        <label class="field">
-          <span>Telefon</span>
-          <input type="tel" name="phone" placeholder="05xx xxx xx xx" required />
-        </label>
-
-        <label class="field">
-          <span>Şehir / İlçe</span>
-          <input type="text" name="location" placeholder="Örnek: İstanbul / Beşiktaş" required />
-        </label>
-
-        <label class="field">
-          <span>Oda Sayısı</span>
-          <input type="number" min="1" name="roomCount" placeholder="Örnek: 24" required />
-        </label>
-
-        <label class="field field--full">
-          <span>Ek Not</span>
-          <textarea name="note" rows="5" placeholder="İstersen otelinle ilgili kısa bilgi ekleyebilirsin."></textarea>
-        </label>
-
-        <div class="apply-form__actions">
-          <button class="btn btn--lg" type="submit">Otelimi Listele</button>
-          <a class="btn btn--lg btn--ghost" href="/">Vazgeç</a>
-        </div>
-      </form>
-
-      <section class="apply-page__support">
-        <h2>Destek Formu</h2>
-        <p class="muted">Başvuru dışında bir konuda desteğe ihtiyacın varsa aşağıdan bize ulaşabilirsin.</p>
-
-        <form class="support-form" action="#" method="post">
-          <label class="field">
-            <span>Ad Soyad</span>
-            <input type="text" name="supportName" placeholder="Ad Soyad" required />
-          </label>
-
-          <label class="field">
-            <span>E-posta</span>
-            <input type="email" name="supportEmail" placeholder="ornek@mail.com" required />
-          </label>
-
-          <label class="field field--full">
-            <span>Mesaj</span>
-            <textarea name="supportMessage" rows="4" placeholder="Destek talebini kısaca yaz." required></textarea>
-          </label>
-
-          <div class="support-form__actions">
-            <button class="btn btn--lg" type="submit">Mesaj Gönder</button>
+  <main id="main">
+    <section class="section section--tight section--cta">
+      <div class="container apply-page">
+        <div class="final-cta apply-main-cta">
+          <div class="support-intro apply-page__head">
+            <h1>Otelimi Listele</h1>
+            <p class="muted">
+              Otelini LastKey'e eklemek için aşağıdaki formu doldur. Ekibimiz en kısa sürede seninle iletişime geçer.
+            </p>
           </div>
-        </form>
-      </section>
-    </div>
+
+          <form class="support-form" action="#" method="post" data-form-kind="hotel-application">
+              <label class="field">
+                <span>Otel Adı</span>
+                <input type="text" name="hotelName" placeholder="Örnek: Mavi Koy Hotel" required />
+              </label>
+
+              <label class="field">
+                <span>Yetkili Ad Soyad</span>
+                <input type="text" name="ownerName" placeholder="Ad Soyad" required />
+              </label>
+
+              <label class="field">
+                <span>E-posta</span>
+                <input type="email" name="email" placeholder="ornek@mail.com" required />
+              </label>
+
+              <label class="field">
+                <span>Telefon</span>
+                <input type="tel" name="phone" placeholder="05xx xxx xx xx" required />
+              </label>
+
+              <label class="field">
+                <span>Şehir / İlçe</span>
+                <input type="text" name="location" placeholder="Örnek: İstanbul / Beşiktaş" required />
+              </label>
+
+              <label class="field">
+                <span>Oda Sayısı</span>
+                <input type="number" min="1" name="roomCount" placeholder="Örnek: 24" required />
+              </label>
+
+              <label class="field field--full">
+                <span>Ek Not</span>
+                <textarea name="note" rows="5" placeholder="İstersen otelinle ilgili kısa bilgi ekleyebilirsin."></textarea>
+              </label>
+
+              <div class="support-form__actions">
+                <button class="btn btn--lg" type="submit" data-idle-label="Otelimi Listele">Otelimi Listele</button>
+                <a class="btn btn--lg btn--ghost" href="/">Vazgeç</a>
+              </div>
+              <p class="form-status muted" data-form-status aria-live="polite"></p>
+          </form>
+        </div>
+
+        <section class="apply-page__support section section--tight section--cta">
+          <div class="final-cta">
+            <div class="support-intro">
+              <h2>Destek Formu</h2>
+              <p class="muted">Başvuru dışında bir konuda desteğe ihtiyacın varsa aşağıdan bize ulaşabilirsin.</p>
+            </div>
+
+            <form class="support-form" action="#" method="post" data-form-kind="application-support">
+              <label class="field">
+                <span>Ad Soyad</span>
+                <input type="text" name="supportName" placeholder="Ad Soyad" required />
+              </label>
+
+              <label class="field">
+                <span>E-posta</span>
+                <input type="email" name="supportEmail" placeholder="ornek@mail.com" required />
+              </label>
+
+              <label class="field field--full">
+                <span>Mesaj</span>
+                <textarea name="supportMessage" rows="4" placeholder="Destek talebini kısaca yaz." required></textarea>
+              </label>
+
+              <div class="support-form__actions">
+                <button class="btn btn--lg" type="submit" data-idle-label="Mesaj Gönder">Mesaj Gönder</button>
+              </div>
+              <p class="form-status muted" data-form-status aria-live="polite"></p>
+            </form>
+          </div>
+        </section>
+      </div>
+    </section>
   </main>
 </BaseLayout>

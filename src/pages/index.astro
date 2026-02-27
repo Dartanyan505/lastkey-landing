@@ -54,7 +54,7 @@ import {
           ".hero__visual",
           ".value-intro",
           ".value-rail li",
-          ".download-panel > div",
+          ".download-panel",
           ".section--gallery .section__head",
           ".screens-gallery",
           ".screens-gallery__controlsbar",
@@ -65,7 +65,7 @@ import {
           ".host-panel",
           ".faq-layout > div:first-child",
           ".faq__item",
-          ".final-cta > div",
+          ".final-cta",
           ".support-form",
           ".support-to-top-wrap",
           ".footer__brand",
@@ -81,7 +81,7 @@ import {
 
       if (el.matches(".hero__copy, .value-intro, .feature-spotlight, .faq-layout > div:first-child")) {
         el.classList.add("reveal-left");
-      } else if (el.matches(".hero__visual, .host-panel, .support-form")) {
+      } else if (el.matches(".hero__visual, .host-panel, .support-form, .final-cta")) {
         el.classList.add("reveal-right");
       }
     });

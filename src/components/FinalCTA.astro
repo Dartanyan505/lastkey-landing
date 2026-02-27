@@ -13,7 +13,7 @@
         </div>
       </div>
 
-      <form class="support-form" action="#" method="post">
+      <form class="support-form" action="#" method="post" data-form-kind="landing-support">
         <label class="field">
           <span>Ad Soyad</span>
           <input type="text" name="name" placeholder="Ad Soyad" required />
@@ -30,8 +30,9 @@
         </label>
 
         <div class="support-form__actions">
-          <button class="btn btn--lg" type="submit">Gönder</button>
+          <button class="btn btn--lg" type="submit" data-idle-label="Gönder">Gönder</button>
         </div>
+        <p class="form-status muted" data-form-status aria-live="polite"></p>
       </form>
     </div>
 
