@@ -86,7 +86,7 @@ const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
         let ringX = targetX;
         let ringY = targetY;
         let rafId = 0;
-        const ease = 0.2;
+        const ease = 0.4;
 
         const animateRing = () => {
           ringX += (targetX - ringX) * ease;
