@@ -2298,6 +2298,36 @@ body::after {
     gap: 14px;
   }
 
+  .screens-gallery__phone {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .screens-gallery__phone img {
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .screens-gallery__copy {
+    padding: 12px 14px;
+  }
+
+  .screens-gallery__copy .muted {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .screens-gallery__details {
+    gap: 6px;
+  }
+
+  .screens-gallery__details li:nth-child(n + 3) {
+    display: none;
+  }
+
   .screens-gallery__controlsbar {
     flex-direction: column;
     align-items: stretch;
