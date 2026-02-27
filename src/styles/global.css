@@ -1290,6 +1290,51 @@ p {
   gap: 12px;
 }
 
+.footer__stores {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  max-width: none;
+}
+
+.store-link--footer {
+  display: inline-flex !important;
+  width: auto;
+  height: auto;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.store-badge--footer {
+  width: auto;
+  height: auto !important;
+  max-width: 100%;
+  object-fit: none;
+  object-position: left center;
+}
+
+.store-badge--google.store-badge--footer {
+  transform: scale(0.9);
+  transform-origin: center;
+}
+
+.store-badge--apple.store-badge--footer {
+  transform: scale(0.8);
+  transform-origin: center;
+}
+
+.store-link--footer:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
 .footer__title {
   margin-bottom: 8px;
   font-weight: 800;
@@ -2235,4 +2280,17 @@ body::after {
   .has-custom-cursor * {
     cursor: none !important;
   }
+}
+
+/* Footer store links: keep plain badges with no card background */
+.footer .store-link--footer,
+.footer .store-link--footer:hover {
+  min-height: auto;
+  justify-content: flex-start;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  transform: none;
 }
