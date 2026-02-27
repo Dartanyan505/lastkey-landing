@@ -2481,4 +2481,34 @@ body::after {
   .feature-lines p {
     line-height: 1.4;
   }
+
+  .journey {
+    width: calc(100% + 28px);
+    margin-left: -14px;
+    margin-right: -14px;
+    padding-inline: 14px;
+    border: 1px solid rgba(20, 40, 80, 0.12);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.86);
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    gap: 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .journey__step {
+    flex: 0 0 min(72vw, 270px);
+    padding: 12px 12px 14px;
+    border-right: 1px solid rgba(20, 40, 80, 0.12);
+    border-radius: 0;
+    background: transparent;
+    scroll-snap-align: start;
+  }
+
+  .journey__step:last-child {
+    border-right: 0;
+  }
+
 }

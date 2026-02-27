@@ -9,14 +9,136 @@ const { steps = [] } = Astro.props as { steps?: string[] };
       </div>
       <p class="muted">Birkaç adımda rezervasyonunu tamamla.</p>
     </div>
-
-    <ol class="journey">
-      {steps.map((step, index) => (
-        <li class="journey__step">
-          <span class="journey__pin">{index + 1}</span>
-          <p>{step}</p>
-        </li>
-      ))}
-    </ol>
+    <div class="journey-shell" data-journey-shell>
+      <ol class="journey">
+        {steps.map((step, index) => (
+          <li class="journey__step">
+            <span class="journey__pin">{index + 1}</span>
+            <p>{step}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
   </div>
 </section>
+
+<script>
+  const journeyShell = document.querySelector<HTMLElement>("[data-journey-shell]");
+  const journey = journeyShell?.querySelector<HTMLOListElement>(".journey");
+
+  if (journeyShell && journey) {
+    let hintIntervalId = 0;
+    let hintStartId = 0;
+    let hintRafId = 0;
+    let isAutoNudging = false;
+    let hasUserInteracted = false;
+
+    const clearHintTimers = () => {
+      window.clearTimeout(hintStartId);
+      window.clearInterval(hintIntervalId);
+      window.cancelAnimationFrame(hintRafId);
+    };
+
+    const easeInOut = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+
+    const animateScrollLeft = (from: number, to: number, duration: number, onDone?: () => void) => {
+      const start = performance.now();
+
+      const frame = (now: number) => {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeInOut(progress);
+        journey.scrollLeft = from + (to - from) * eased;
+
+        if (progress < 1) {
+          hintRafId = window.requestAnimationFrame(frame);
+        } else if (onDone) {
+          onDone();
+        }
+      };
+
+      hintRafId = window.requestAnimationFrame(frame);
+    };
+
+    const runHintNudge = () => {
+      if (!journeyShell.classList.contains("is-hinting")) return;
+      if (isAutoNudging) return;
+
+      const maxScroll = journey.scrollWidth - journey.clientWidth;
+      if (maxScroll <= 6) return;
+
+      isAutoNudging = true;
+      const originalSnap = journey.style.scrollSnapType;
+      journey.style.scrollSnapType = "none";
+
+      const from = journey.scrollLeft;
+      const to = Math.min(from + 26, maxScroll);
+
+      animateScrollLeft(from, to, 360, () => {
+        animateScrollLeft(to, from, 420, () => {
+          journey.scrollLeft = from;
+          journey.style.scrollSnapType = originalSnap;
+          isAutoNudging = false;
+        });
+      });
+    };
+
+    const syncHintState = () => {
+      const canScroll = journey.scrollWidth > journey.clientWidth + 2;
+      const shouldHint = canScroll;
+      journeyShell.classList.toggle("is-hinting", shouldHint);
+
+      if (shouldHint && hintIntervalId === 0) {
+        hintStartId = window.setTimeout(runHintNudge, 450);
+        hintIntervalId = window.setInterval(runHintNudge, 2600);
+      } else if (!shouldHint && hintIntervalId !== 0) {
+        clearHintTimers();
+        hintIntervalId = 0;
+      }
+    };
+
+    const stopHint = () => {
+      if (!journeyShell.classList.contains("is-hinting")) return;
+      journeyShell.classList.remove("is-hinting");
+      clearHintTimers();
+      hintIntervalId = 0;
+      journey.style.scrollSnapType = "";
+      isAutoNudging = false;
+    };
+
+    journey.addEventListener(
+      "scroll",
+      () => {
+        if (isAutoNudging) return;
+        if (hasUserInteracted && Math.abs(journey.scrollLeft) > 4) stopHint();
+      },
+      { passive: true },
+    );
+
+    journey.addEventListener(
+      "touchstart",
+      () => {
+        hasUserInteracted = true;
+      },
+      { passive: true },
+    );
+
+    journey.addEventListener(
+      "pointerdown",
+      () => {
+        hasUserInteracted = true;
+      },
+      { passive: true },
+    );
+
+    // Layout measurements can be unstable at initial script run; retry on next frames and resize.
+    window.requestAnimationFrame(() => {
+      syncHintState();
+      window.requestAnimationFrame(syncHintState);
+    });
+    window.addEventListener("load", syncHintState);
+    window.addEventListener("resize", syncHintState);
+    window.addEventListener("pagehide", clearHintTimers);
+    syncHintState();
+  }
+</script>
