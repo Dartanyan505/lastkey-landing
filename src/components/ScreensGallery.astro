@@ -1,5 +1,13 @@
 ---
-const { items = [] } = Astro.props;
+type GalleryItem = {
+  src: string;
+  alt: string;
+  title: string;
+  desc: string;
+  details?: string[];
+};
+
+const { items = [] } = Astro.props as { items?: GalleryItem[] };
 ---
 <section class="section section--alt section--gallery">
   <div class="container">
@@ -12,7 +20,7 @@ const { items = [] } = Astro.props;
 
     <div class="screens-gallery" data-gallery aria-label="Uygulama ekran galerisi">
       <div class="screens-gallery__track" data-gallery-track>
-        {items.map((item, index) => (
+        {items.map((item) => (
           <article class="screens-gallery__item" data-slide>
             <figure class="screens-gallery__phone">
               <div class="screens-gallery__phone-top" aria-hidden="true">
@@ -76,8 +84,8 @@ const { items = [] } = Astro.props;
 </section>
 
 <script>
-  const galleries = document.querySelectorAll("[data-gallery]");
-  const galleryVisibilityHandlers = [];
+  const galleries = document.querySelectorAll<HTMLElement>("[data-gallery]");
+  const galleryVisibilityHandlers: Array<(isHidden: boolean) => void> = [];
 
   if (galleries.length) {
     document.addEventListener("visibilitychange", () => {
@@ -87,22 +95,22 @@ const { items = [] } = Astro.props;
   }
 
   galleries.forEach((gallery) => {
-    const track = gallery.querySelector("[data-gallery-track]");
-    const controls = gallery.querySelector("[data-gallery-controls]");
-    const pager = gallery.querySelector("[data-gallery-pager]");
+    const track = gallery.querySelector<HTMLElement>("[data-gallery-track]");
+    const controls = gallery.querySelector<HTMLElement>("[data-gallery-controls]");
+    const pager = gallery.querySelector<HTMLElement>("[data-gallery-pager]");
 
     if (!controls || !track) return;
 
-    const buttons = controls.querySelectorAll("[data-dir]");
-    const slides = track.querySelectorAll("[data-slide]");
-    const dots = pager?.querySelectorAll("[data-go]") ?? [];
+    const buttons = controls.querySelectorAll<HTMLButtonElement>("[data-dir]");
+    const slides = track.querySelectorAll<HTMLElement>("[data-slide]");
+    const dots = pager?.querySelectorAll<HTMLButtonElement>("[data-go]") ?? [];
     let currentIndex = 0;
     let autoTimer = 0;
     let touchStartX = 0;
     let touchDeltaX = 0;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const goTo = (nextIndex) => {
+    const goTo = (nextIndex: number) => {
       if (!slides.length) return;
       currentIndex = (nextIndex + slides.length) % slides.length;
       update();
@@ -151,7 +159,7 @@ const { items = [] } = Astro.props;
     });
 
     gallery.setAttribute("tabindex", "0");
-    gallery.addEventListener("keydown", (event) => {
+    gallery.addEventListener("keydown", (event: KeyboardEvent) => {
       if (event.key === "ArrowRight") {
         goTo(currentIndex + 1);
         startAutoPlay();
@@ -168,7 +176,7 @@ const { items = [] } = Astro.props;
 
     gallery.addEventListener(
       "touchstart",
-      (event) => {
+      (event: TouchEvent) => {
         touchStartX = event.touches[0]?.clientX ?? 0;
         touchDeltaX = 0;
         stopAutoPlay();
@@ -178,7 +186,7 @@ const { items = [] } = Astro.props;
 
     gallery.addEventListener(
       "touchmove",
-      (event) => {
+      (event: TouchEvent) => {
         const moveX = event.touches[0]?.clientX ?? touchStartX;
         touchDeltaX = moveX - touchStartX;
       },

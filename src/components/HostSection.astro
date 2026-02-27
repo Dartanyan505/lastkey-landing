@@ -1,5 +1,13 @@
 ---
-const { features = [], steps = [] } = Astro.props;
+type HostFeature = {
+  title: string;
+  desc: string;
+};
+
+const { features = [], steps = [] } = Astro.props as {
+  features?: HostFeature[];
+  steps?: string[];
+};
 ---
 <section id="otel-sahipleri" class="section section--host">
   <div class="container">

@@ -1,5 +1,10 @@
 ---
-const { items = [] } = Astro.props;
+type FeatureItem = {
+  title: string;
+  desc: string;
+};
+
+const { items = [] } = Astro.props as { items?: FeatureItem[] };
 ---
 <section class="section section--features">
   <div class="container">

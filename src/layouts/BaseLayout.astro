@@ -34,7 +34,7 @@ const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
     </button>
     <slot />
 
-    <script define:vars={{ formEndpoint }}>
+    <script is:inline define:vars={{ formEndpoint }}>
       const scrollProgress = document.querySelector(".scroll-progress");
       const toTopButton = document.querySelector(".to-top");
 

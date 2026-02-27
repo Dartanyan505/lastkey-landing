@@ -22,7 +22,7 @@ export const screenShotPaths = [
 ].map(toImagePath).filter(Boolean);
 
 export const nav = [
-  { label: "Keşfet", href: "#kesfet" },
+  { label: "Keşfet", href: "#main" },
   { label: "Otel Sahipleri", href: "#otel-sahipleri" },
   { label: "SSS", href: "#sss" },
   { label: "Destek", href: "#destek" },

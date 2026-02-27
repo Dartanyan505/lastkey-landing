@@ -1,5 +1,10 @@
 ---
-const { nav = [] } = Astro.props;
+type NavItem = {
+  label: string;
+  href: string;
+};
+
+const { nav = [] } = Astro.props as { nav?: NavItem[] };
 ---
 <header class="nav" data-nav>
   <div class="container nav__inner">

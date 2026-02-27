@@ -1,5 +1,5 @@
 ---
-const { steps = [] } = Astro.props;
+const { steps = [] } = Astro.props as { steps?: string[] };
 ---
 <section id="nasil-calisir" class="section section--alt section--timeline">
   <div class="container">
