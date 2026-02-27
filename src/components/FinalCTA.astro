@@ -2,13 +2,30 @@
   <div class="container">
     <div class="final-cta">
       <div>
-        <h2>İndirimli odayı hemen bul</h2>
-        <p class="muted">Son dakika indirimli otelleri hemen karşılaştır.</p>
+        <h2>Destek Formu</h2>
+        <p class="muted">Sorunu veya talebini bize yaz. Ekibimiz en kısa sürede seninle iletişime geçsin.</p>
       </div>
-      <div class="final-cta__actions">
-        <a class="btn btn--lg" href="/basvuru-gonder">Otelimi Listele</a>
-        <a class="btn btn--lg btn--ghost" href="#kesfet">Otelleri Gör</a>
-      </div>
+
+      <form class="support-form" action="#" method="post">
+        <label class="field">
+          <span>Ad Soyad</span>
+          <input type="text" name="name" placeholder="Ad Soyad" required />
+        </label>
+
+        <label class="field">
+          <span>E-posta</span>
+          <input type="email" name="email" placeholder="ornek@mail.com" required />
+        </label>
+
+        <label class="field field--full">
+          <span>Mesaj</span>
+          <textarea name="message" rows="4" placeholder="Destek talebini kısaca yaz." required></textarea>
+        </label>
+
+        <div class="support-form__actions">
+          <button class="btn btn--lg" type="submit">Gönder</button>
+        </div>
+      </form>
     </div>
   </div>
 </section>

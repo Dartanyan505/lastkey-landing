@@ -583,12 +583,18 @@ p {
 }
 
 .nav {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 60;
   backdrop-filter: blur(12px);
   background: rgba(244, 248, 255, 0.75);
   border-bottom: 1px solid rgba(20, 40, 80, 0.12);
+}
+
+.nav + main {
+  padding-top: 88px;
 }
 
 .nav__inner {
@@ -1344,6 +1350,22 @@ p {
   gap: 10px;
 }
 
+.support-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.support-form__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-start;
+}
+
 .footer {
   position: relative;
   z-index: 1;
@@ -1638,6 +1660,10 @@ p {
   }
 
   .apply-form {
+    grid-template-columns: 1fr;
+  }
+
+  .support-form {
     grid-template-columns: 1fr;
   }
 

@@ -1,8 +1,8 @@
 export const nav = [
   { label: "Keşfet", href: "#kesfet" },
   { label: "Otel Sahipleri", href: "#otel-sahipleri" },
-  { label: "Destek", href: "#destek" },
   { label: "SSS", href: "#sss" },
+  { label: "Destek", href: "#destek" },
 ];
 
 export const userValueProps = [
