@@ -27,5 +27,22 @@
         </div>
       </form>
     </div>
+
+    <div class="support-to-top-wrap">
+      <button class="support-to-top" type="button" data-to-top aria-label="Sayfanın başına dön">
+        <svg class="support-to-top__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M6.5 14.5 12 9l5.5 5.5" />
+        </svg>
+      </button>
+    </div>
   </div>
 </section>
+
+<script>
+  const supportToTopButtons = document.querySelectorAll("[data-to-top]");
+  supportToTopButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+</script>
