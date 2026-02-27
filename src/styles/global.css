@@ -733,7 +733,7 @@ p {
   margin: 0;
   position: absolute;
   width: min(240px, 56vw);
-  border-radius: 30px;
+  border-radius: 18px;
   overflow: hidden;
   border: 1px solid rgba(20, 40, 80, 0.18);
   box-shadow: var(--shadow-lg);
@@ -1709,7 +1709,7 @@ body::after {
 }
 
 .hero-phone {
-  border-radius: 34px;
+  border-radius: 18px;
   border: 1px solid rgba(18, 41, 80, 0.22);
 }
 
