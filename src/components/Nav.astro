@@ -28,15 +28,17 @@ const { nav = [] } = Astro.props as { nav?: NavItem[] };
       </span>
     </button>
 
-    <nav class="nav__links" id="site-nav-links" aria-label="Ana menü">
-      {nav.map((item) => (
-        <a class="nav__link" href={item.href}>{item.label}</a>
-      ))}
-    </nav>
+    <div class="nav__menu" id="site-nav-links">
+      <nav class="nav__links" aria-label="Ana menü">
+        {nav.map((item) => (
+          <a class="nav__link" href={item.href}>{item.label}</a>
+        ))}
+      </nav>
 
-    <div class="nav__cta">
-      <a class="btn" href="#otel-sahipleri">Otelimi Listele</a>
-      <a class="btn btn--ghost" href="#kesfet">Otelleri Gör</a>
+      <div class="nav__cta">
+        <a class="btn" href="#otel-sahipleri">Otelimi Listele</a>
+        <a class="btn btn--ghost" href="#uygulama">Otelleri Gör</a>
+      </div>
     </div>
   </div>
 </header>
@@ -68,6 +70,14 @@ const { nav = [] } = Astro.props as { nav?: NavItem[] };
 
     navLinks?.forEach((link) => {
       link.addEventListener("click", closeNav);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!navRoot.classList.contains("is-open")) return;
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (navRoot.contains(target)) return;
+      closeNav();
     });
 
     window.addEventListener("keydown", (event) => {
