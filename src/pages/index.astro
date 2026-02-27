@@ -48,7 +48,7 @@ import {
   <script>
     const motionSafe = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const revealTargets = [
-      ...document.querySelectorAll(
+      ...document.querySelectorAll<HTMLElement>(
         [
           ".hero__copy",
           ".hero__visual",
@@ -111,14 +111,14 @@ import {
       });
     }
 
-    const heroVisual = document.querySelector(".hero__visual");
+    const heroVisual = document.querySelector<HTMLElement>(".hero__visual");
     const heroPhones = heroVisual?.querySelectorAll(".hero-phone");
     const canUsePointer = motionSafe && window.matchMedia("(pointer: fine)").matches;
 
     if (heroVisual && heroPhones?.length && canUsePointer) {
       const tiltMax = 8;
 
-      heroVisual.addEventListener("pointermove", (event) => {
+      heroVisual.addEventListener("pointermove", (event: PointerEvent) => {
         const rect = heroVisual.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width - 0.5;
         const y = (event.clientY - rect.top) / rect.height - 0.5;
@@ -136,7 +136,7 @@ import {
     }
 
     const tiltCards = [
-      ...document.querySelectorAll(
+      ...document.querySelectorAll<HTMLElement>(
         [
           ".value-rail li",
           ".feature-lines li",
@@ -152,7 +152,7 @@ import {
       tiltCards.forEach((card) => {
         card.classList.add("tilt-card");
 
-        card.addEventListener("pointermove", (event) => {
+        card.addEventListener("pointermove", (event: PointerEvent) => {
           const rect = card.getBoundingClientRect();
           const x = (event.clientX - rect.left) / rect.width - 0.5;
           const y = (event.clientY - rect.top) / rect.height - 0.5;
@@ -167,7 +167,7 @@ import {
       });
     }
 
-    const navLinks = [...document.querySelectorAll(".nav__link[href^='#']")];
+    const navLinks = [...document.querySelectorAll<HTMLAnchorElement>(".nav__link[href^='#']")];
     const sections = navLinks
       .map((link) => {
         const href = link.getAttribute("href");
@@ -175,10 +175,10 @@ import {
         const section = document.querySelector(href);
         return section instanceof HTMLElement ? section : null;
       })
-      .filter(Boolean);
+      .filter((section): section is HTMLElement => section !== null);
 
     if (navLinks.length && sections.length) {
-      const setActiveLink = (id) => {
+      const setActiveLink = (id: string) => {
         navLinks.forEach((link) => {
           link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
         });
@@ -195,7 +195,7 @@ import {
           return;
         }
 
-        let activeSection = sections[0];
+        let activeSection: HTMLElement | null = sections[0] ?? null;
 
         sections.forEach((section) => {
           const sectionTop = section.getBoundingClientRect().top + window.scrollY;
