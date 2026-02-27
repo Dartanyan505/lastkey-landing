@@ -136,18 +136,6 @@ export const howHost = [
   "Rezervasyon al, boş kalan odalardan kâr üret.",
 ];
 
-export const trust = [
-  "Ödeme işlemleri güvenli ödeme altyapısı üzerinden yürütülür.",
-  "Son dakika kullanıcıları için indirimli oda listesi standart olarak sunulur.",
-  "Destek ekibi, rezervasyon süreçlerinde yardımcı olur.",
-];
-
-export const testimonials = [
-  { quote: "Son dakika girdiğimde indirimli oda seçeneklerini hızlıca görebiliyorum.", who: "[İsim]" },
-  { quote: "Kısa konaklamada uygun fiyatı hızlıca yakaladım.", who: "[İsim]" },
-  { quote: "Boş kalacak odaları indirimli satıp ekstra gelir elde ettim.", who: "[Otel Sahibi, İşletme Adı]" },
-];
-
 export const faqs = [
   { q: "LastKey nedir?", a: "LastKey, son dakika konaklama için otel keşfi ve rezervasyonu tek yerde toplayan bir platformdur." },
   { q: "Kullanıcı tarafında temel avantaj ne?", a: "Son dakika aramalarda indirimli oda seçenekleri tek ekranda sunulur; fırsat yakalamak kolaylaşır." },
