@@ -842,12 +842,8 @@ main [id] {
 .store-badge {
   display: block;
   width: auto;
-  height: 52px;
+  height: 56px;
   max-width: 100%;
-}
-
-.store-badge--google {
-  height: 58px;
 }
 
 .screens-gallery {

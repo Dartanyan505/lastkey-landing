@@ -2,7 +2,6 @@
 import "../styles/global.css";
 
 const { title = "LastKey - Plansız Seyahatlerin Anahtarı" } = Astro.props;
-const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
 ---
 <!doctype html>
 <html lang="tr">
@@ -34,7 +33,7 @@ const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
     </button>
     <slot />
 
-    <script is:inline define:vars={{ formEndpoint }}>
+    <script is:inline>
       const scrollProgress = document.querySelector(".scroll-progress");
       const toTopButton = document.querySelector(".to-top");
 
@@ -138,80 +137,223 @@ const formEndpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? "";
         });
       }
 
-      const normalizedEndpoint = typeof formEndpoint === "string" ? formEndpoint.trim() : "";
-      const bindableForms = [...document.querySelectorAll("form[data-form-kind]")];
-      if (bindableForms.length) {
-        bindableForms.forEach((form) => {
-          const statusEl = form.querySelector("[data-form-status]");
-          const submitButton = form.querySelector('button[type="submit"]');
-          const honeyInput = form.querySelector('input[name="_company"]');
+      const FORM_ENDPOINT =
+        "https://us-central1-deneme7-cf760.cloudfunctions.net/submitLandingForm";
+      const NETWORK_ERROR_MESSAGE = "Şu an gönderilemiyor, lütfen tekrar dene.";
+      const SUCCESS_MESSAGE = "Talebin alındı. En kısa sürede dönüş yapacağız.";
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const isLocalDev =
+        window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 
-          form.addEventListener("submit", async (event) => {
-            event.preventDefault();
+      const setFormStatus = (form, message) => {
+        const statusEl = form.querySelector("[data-form-status]");
+        if (statusEl) statusEl.textContent = message;
+      };
 
-            if (!normalizedEndpoint) {
-              if (statusEl) statusEl.textContent = "Form endpoint ayarlı değil. (PUBLIC_FORM_ENDPOINT)";
-              return;
-            }
+      const setSubmittingState = (button, isSubmitting) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        if (isSubmitting) {
+          button.disabled = true;
+          button.textContent = "Gönderiliyor...";
+          return;
+        }
+        button.disabled = false;
+        const idleLabel = button.getAttribute("data-idle-label");
+        if (idleLabel) button.textContent = idleLabel;
+      };
 
-            let endpointUrl;
-            try {
-              endpointUrl = new URL(normalizedEndpoint, window.location.origin).toString();
-            } catch {
-              if (statusEl) statusEl.textContent = "Form endpoint geçersiz görünüyor.";
-              return;
-            }
+      const formatClientError = (error) => {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return isLocalDev
+            ? `${NETWORK_ERROR_MESSAGE} [timeout]`
+            : NETWORK_ERROR_MESSAGE;
+        }
 
-            if (
-              honeyInput instanceof HTMLInputElement &&
-              honeyInput.value.trim().length > 0
-            ) {
-              if (statusEl) statusEl.textContent = "Talebin alındı. En kısa sürede dönüş yapacağız.";
-              form.reset();
-              return;
-            }
+        if (error instanceof TypeError) {
+          return isLocalDev
+            ? `${NETWORK_ERROR_MESSAGE} [network/cors] endpoint=${FORM_ENDPOINT}`
+            : NETWORK_ERROR_MESSAGE;
+        }
 
-            const formData = new FormData(form);
-            formData.append("_form_kind", form.getAttribute("data-form-kind") ?? "unknown");
-            formData.append("_page", window.location.pathname);
+        if (error instanceof Error && error.message) return error.message;
+        return "Gönderim başarısız oldu. Lütfen tekrar dene.";
+      };
 
-            if (submitButton instanceof HTMLButtonElement) {
-              submitButton.disabled = true;
-              submitButton.textContent = "Gönderiliyor...";
-            }
-            if (statusEl) statusEl.textContent = "";
-
-            try {
-              const controller = new AbortController();
-              const timeoutId = window.setTimeout(() => controller.abort(), 12000);
-              const response = await fetch(endpointUrl, {
-                method: "POST",
-                body: formData,
-                headers: { Accept: "application/json" },
-                signal: controller.signal,
-              });
-              window.clearTimeout(timeoutId);
-
-              if (!response.ok) throw new Error("request_failed");
-              form.reset();
-              if (statusEl) statusEl.textContent = "Talebin alındı. En kısa sürede dönüş yapacağız.";
-            } catch (error) {
-              if (statusEl) {
-                statusEl.textContent =
-                  error instanceof DOMException && error.name === "AbortError"
-                    ? "İstek zaman aşımına uğradı. Lütfen tekrar dene."
-                    : "Gönderim başarısız oldu. Lütfen tekrar dene.";
-              }
-            } finally {
-              if (submitButton instanceof HTMLButtonElement) {
-                submitButton.disabled = false;
-                const idleLabel = submitButton.getAttribute("data-idle-label");
-                if (idleLabel) submitButton.textContent = idleLabel;
-              }
-            }
+      const postLandingForm = async (payload) => {
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), 12000);
+        try {
+          const response = await fetch(FORM_ENDPOINT, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(payload),
+            signal: controller.signal,
           });
-        });
+
+          let responseBody = null;
+          let responseText = "";
+          try {
+            responseText = await response.text();
+            responseBody = responseText ? JSON.parse(responseText) : null;
+          } catch {
+            responseBody = null;
+          }
+
+          if (!response.ok || !responseBody?.ok) {
+            const apiError =
+              typeof responseBody?.error === "string" && responseBody.error.trim()
+                ? responseBody.error.trim()
+                : "Gönderim başarısız oldu. Lütfen tekrar dene.";
+            const debugSuffix = isLocalDev
+              ? ` [http:${response.status}]${responseText ? ` body=${responseText.slice(0, 180)}` : ""}`
+              : "";
+            throw new Error(`${apiError}${debugSuffix}`);
+          }
+
+          return responseBody;
+        } finally {
+          window.clearTimeout(timeoutId);
+        }
+      };
+
+      const handleHotelListingSubmit = async (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (!(form instanceof HTMLFormElement)) return;
+
+        const submitButton = form.querySelector('button[type="submit"]');
+        const honeyInput = form.querySelector('input[name="_company"]');
+
+        const hotelName = (form.querySelector('input[name="hotelName"]')?.value ?? "").trim();
+        const contactName = (form.querySelector('input[name="ownerName"]')?.value ?? "").trim();
+        const email = (form.querySelector('input[name="email"]')?.value ?? "").trim();
+        const phone = (form.querySelector('input[name="phone"]')?.value ?? "").trim();
+        const cityDistrict = (form.querySelector('input[name="location"]')?.value ?? "").trim();
+        const roomCountRaw = (form.querySelector('input[name="roomCount"]')?.value ?? "").trim();
+        const note = (form.querySelector('textarea[name="note"]')?.value ?? "").trim();
+        const roomCount = Number(roomCountRaw);
+
+        if (!hotelName || !contactName || !email || !phone || !cityDistrict || !roomCountRaw) {
+          setFormStatus(form, "Lütfen zorunlu alanların tamamını doldur.");
+          return;
+        }
+
+        if (!emailRegex.test(email)) {
+          setFormStatus(form, "Lütfen geçerli bir e-posta adresi gir.");
+          return;
+        }
+
+        if (!Number.isFinite(roomCount) || roomCount <= 0) {
+          setFormStatus(form, "Oda sayısı 0'dan büyük bir sayı olmalıdır.");
+          return;
+        }
+
+        if (honeyInput instanceof HTMLInputElement && honeyInput.value.trim().length > 0) {
+          setFormStatus(form, SUCCESS_MESSAGE);
+          form.reset();
+          return;
+        }
+
+        setFormStatus(form, "");
+        setSubmittingState(submitButton, true);
+
+        try {
+          await postLandingForm({
+            formType: "hotel_listing",
+            hotelName,
+            contactName,
+            email,
+            phone,
+            cityDistrict,
+            roomCount,
+            note,
+          });
+          form.reset();
+          setFormStatus(form, SUCCESS_MESSAGE);
+        } catch (error) {
+          setFormStatus(form, formatClientError(error));
+        } finally {
+          setSubmittingState(submitButton, false);
+        }
+      };
+
+      const handleSupportSubmit = async (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (!(form instanceof HTMLFormElement)) return;
+
+        const submitButton = form.querySelector('button[type="submit"]');
+        const honeyInput = form.querySelector('input[name="_company"]');
+
+        const fullName = (
+          form.querySelector('input[name="supportName"]')?.value ??
+          form.querySelector('input[name="name"]')?.value ??
+          ""
+        ).trim();
+        const email = (
+          form.querySelector('input[name="supportEmail"]')?.value ??
+          form.querySelector('input[name="email"]')?.value ??
+          ""
+        ).trim();
+        const message = (
+          form.querySelector('textarea[name="supportMessage"]')?.value ??
+          form.querySelector('textarea[name="message"]')?.value ??
+          ""
+        ).trim();
+
+        if (!fullName || !email || !message) {
+          setFormStatus(form, "Lütfen zorunlu alanların tamamını doldur.");
+          return;
+        }
+
+        if (!emailRegex.test(email)) {
+          setFormStatus(form, "Lütfen geçerli bir e-posta adresi gir.");
+          return;
+        }
+
+        if (honeyInput instanceof HTMLInputElement && honeyInput.value.trim().length > 0) {
+          setFormStatus(form, SUCCESS_MESSAGE);
+          form.reset();
+          return;
+        }
+
+        setFormStatus(form, "");
+        setSubmittingState(submitButton, true);
+
+        try {
+          await postLandingForm({
+            formType: "support",
+            fullName,
+            email,
+            message,
+          });
+          form.reset();
+          setFormStatus(form, SUCCESS_MESSAGE);
+        } catch (error) {
+          setFormStatus(form, formatClientError(error));
+        } finally {
+          setSubmittingState(submitButton, false);
+        }
+      };
+
+      const hotelListingForm = document.querySelector(
+        'form[data-form-kind="hotel-application"]',
+      );
+      if (hotelListingForm instanceof HTMLFormElement) {
+        hotelListingForm.addEventListener("submit", handleHotelListingSubmit);
       }
+
+      const supportForms = [
+        ...document.querySelectorAll('form[data-form-kind="application-support"], form[data-form-kind="landing-support"]'),
+      ];
+      supportForms.forEach((form) => {
+        if (form instanceof HTMLFormElement) {
+          form.addEventListener("submit", handleSupportSubmit);
+        }
+      });
     </script>
   </body>
 </html>
