@@ -40,10 +40,6 @@ const { items = [] } = Astro.props as { items?: GalleryItem[] };
               <h3>{item.title}</h3>
               <p class="muted">{item.desc}</p>
 
-              <div class="screens-gallery__meta">
-                <span>Canlı deneyim</span>
-              </div>
-
               <ul class="screens-gallery__details">
                 {((item.details && item.details.length ? item.details : []) as string[]).map((line) => (
                   <li>{line}</li>

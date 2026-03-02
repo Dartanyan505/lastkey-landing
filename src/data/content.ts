@@ -52,7 +52,7 @@ export const userScreenStory = [
     alt: "LastKey ana sayfa ve arama ekranı",
     title: "Hızlı arama ile başla",
     desc: "Konum, gece ve kişi sayısını seçip uygun otelleri tek ekranda anında gör.",
-    details: ["Konum ve tarih seçimi tek panelde.", "Filtrelerle aramayı hızlıca daralt.", "Harita ve liste arasında geçiş yap."],
+    details: ["Konum ve tarihi tek panelden seç.", "Filtrelerle aramayı hızlıca daralt.", "Harita ve liste arasında geçiş yap."],
     reverse: false,
   },
   {
@@ -68,7 +68,7 @@ export const userScreenStory = [
     alt: "LastKey oda seçenekleri ekranı",
     title: "Oda tiplerini net karşılaştır",
     desc: "Standart ve manzaralı gibi oda seçeneklerini fiyat ve kapasite bilgileriyle incele.",
-    details: ["Her oda için kapasite bilgisi var.", "Gece fiyatı ve toplam tutar net görünür.", "Tek dokunuşla seçip devam et."],
+    details: ["Her oda için kapasite bilgisini gör.", "Gece fiyatını ve toplam tutarı net gör.", "Tek dokunuşla seçip devam et."],
     reverse: false,
   },
   {
@@ -76,7 +76,7 @@ export const userScreenStory = [
     alt: "LastKey canlı destek konuşması",
     title: "Canlı destek her adımda yanında",
     desc: "Takıldığın anda uygulama içi sohbetten hızlıca yardım alarak işlemi yarıda bırakma.",
-    details: ["Sohbet akışı sade ve anlaşılır.", "Yeni talep açma aksiyonu net.", "Destekle çözüm süreci tek yerde."],
+    details: ["Sohbet akışını sade ve anlaşılır şekilde takip et.", "Yeni talep açma adımını net şekilde kullan.", "Destekle çözüm sürecini tek yerden yönet."],
     reverse: true,
   },
   {
@@ -84,7 +84,7 @@ export const userScreenStory = [
     alt: "LastKey otel detay sayfası",
     title: "Otel detaylarını tam gör",
     desc: "Puan, açıklama, imkanlar ve fiyatı aynı sayfada görüp emin olarak seçim yap.",
-    details: ["İndirimli fiyat kartı öne çıkıyor.", "Otel imkanları etiketlerle listelenir.", "Yorumlara sayfa içinden erişirsin."],
+    details: ["İndirimli fiyat kartını önde gör.", "Otel imkanlarını etiketlerle incele.", "Yorumlara sayfa içinden eriş."],
     reverse: false,
   },
   {
@@ -92,7 +92,7 @@ export const userScreenStory = [
     alt: "LastKey rezervasyonlarım ekranı",
     title: "Rezervasyonlarını yönet",
     desc: "Yaklaşan, geçmiş ve iptal durumlarını filtreleyip rezervasyonlarını tek listede takip et.",
-    details: ["Rezervasyon durumu anlık görünür.", "Tarih, oda ve ödeme özeti tek kartta.", "Yaklaşan konaklamaları kaçırmazsın."],
+    details: ["Rezervasyon durumunu anlık gör.", "Tarih, oda ve ödeme özetini tek kartta gör.", "Yaklaşan konaklamaları kaçırma."],
     reverse: true,
   },
   {
@@ -100,7 +100,7 @@ export const userScreenStory = [
     alt: "LastKey yorumlar ve konaklama seçenekleri ekranı",
     title: "Yorumları oku, doğru tercihi yap",
     desc: "Gerçek kullanıcı yorumlarını okuyup ardından gecelere göre hızlıca oda kontrol et.",
-    details: ["Yorum puanı ve tarih bilgisi görünür.", "Gece seçenekleri aynı ekranda listelenir.", "Rezervasyon aksiyonu hemen altta."],
+    details: ["Yorum puanını ve tarih bilgisini gör.", "Gece seçeneklerini aynı ekranda incele.", "Rezervasyon adımını hemen alttan başlat."],
     reverse: false,
   },
   {
@@ -108,7 +108,7 @@ export const userScreenStory = [
     alt: "LastKey ödeme özeti ekranı",
     title: "Ödeme özetini net tamamla",
     desc: "Giriş-çıkış, misafir bilgisi ve toplam tutarı görüp güvenli ödeme adımını tamamla.",
-    details: ["Süre sayacıyla işlem takibi yapılır.", "Fiyat kırılımı açık şekilde listelenir.", "Bilgilendirme notlarıyla şeffaf süreç sunulur."],
+    details: ["Süre sayacıyla işlemi takip et.", "Fiyat kırılımını açık şekilde incele.", "Bilgilendirme notlarıyla süreci şeffaf şekilde takip et."],
     reverse: true,
   },
 ];
