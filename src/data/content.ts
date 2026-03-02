@@ -29,21 +29,21 @@ export const nav = [
 ];
 
 export const userValueProps = [
-  "Son dakika aramada indirimli oda seçeneklerine hızlıca ulaş.",
-  "Konum, tarih, kişi sayısı ve bütçene göre hızlıca filtrele.",
-  "İndirimli odaları karşılaştır, en uygun oteli seç.",
-  "Güvenli ödeme altyapısıyla rezervasyonunu dakikalar içinde tamamla.",
-  "İstersen kupon kodunu ekle, fiyatı daha da düşür.",
+  "Son dakika rezervasyonlarında indirimli oda seçeneklerine anında ulaş.",
+  "Akıllı filtreleme ile aradığın kriterlere en uygun seçenekleri listele.",
+  "İndirimli odaları karşılaştır, avantajlı oteli kolayca seç.",
+  "Güvenli ödeme sistemiyle rezervasyonunu dakikalar içinde tamamla.",
+  "Kupon kodu ekle, indirim oranını artır.",
 ];
 
 export const userFeatures = [
   { title: "İndirimli oda listesi", desc: "Son dakika aramada indirimli oda seçeneklerini öne çıkarır." },
   { title: "Konuma göre keşif", desc: "Yakınındaki otelleri ve indirimli odaları otomatik öne çıkarır." },
-  { title: "Harita görünümü", desc: "Otelleri harita üstünde inceleyip konum avantajını görürsün." },
-  { title: "Akıllı filtreler", desc: "Fiyat aralığı, yıldız, ilçe ve otel özelliklerine göre arama." },
+  { title: "Harita görünümü", desc: "Otelleri harita üstünde inceleyip sana yakın olan otelleri gösterir." },
+  { title: "Akıllı filtreler", desc: "Fiyat aralığı, yıldız, ilçe ve otel özelliklerine göre arama sağlar." },
   { title: "Fırsat etiketleri", desc: "En iyi fiyat veren oteller “Tavsiye Edilen” veya “Fırsat Otel” etiketi alır." },
-  { title: "Favoriler", desc: "Beğendiğin otelleri kaydet, sonra kolayca geri dön." },
-  { title: "Yorumlar", desc: "Misafir deneyimlerini oku; kararını hızlı ve güvenli ver." },
+  { title: "Favoriler", desc: "Beğendiğin otelleri kaydedip kolayca geri dönmeni sağlar." },
+  { title: "Yorumlar", desc: "Misafir deneyimlerini okuyup kararını hızlı ve güvenli vermene yardımcı olur." },
 ];
 
 export const userScreenStory = [
