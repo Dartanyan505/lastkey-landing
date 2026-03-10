@@ -47,6 +47,7 @@ import {
 
   <script>
     const motionSafe = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const lowPowerReveal = window.matchMedia("(pointer: coarse), (max-width: 900px)").matches;
     const revealTargets = [
       ...document.querySelectorAll<HTMLElement>(
         [
@@ -74,7 +75,7 @@ import {
       ),
     ];
 
-    if (!motionSafe || !("IntersectionObserver" in window)) {
+    if (!motionSafe || lowPowerReveal || !("IntersectionObserver" in window)) {
       revealTargets.forEach((el) => el.classList.add("is-visible"));
     } else {
       const initialTargets = new Set(
