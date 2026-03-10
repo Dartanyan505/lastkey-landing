@@ -44,7 +44,7 @@ const { nav = [] } = Astro.props as { nav?: NavItem[] };
 </header>
 
 <script>
-  const navRoot = document.querySelector("[data-nav]");
+  const navRoot = document.querySelector<HTMLElement>("[data-nav]");
   const navToggle = navRoot?.querySelector("[data-nav-toggle]");
   const navLinks = navRoot?.querySelectorAll(".nav__link");
 

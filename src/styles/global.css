@@ -2384,65 +2384,6 @@ body::after {
   }
 }
 
-/* Custom cursor */
-.cursor-ring,
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0;
-  --cursor-x: -100px;
-  --cursor-y: -100px;
-  --cursor-scale: 1;
-  transform: translate3d(var(--cursor-x), var(--cursor-y), 0) translate(-50%, -50%) scale(var(--cursor-scale));
-  transition: opacity 0.12s ease, transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
-  will-change: transform, opacity;
-}
-
-.cursor-ring {
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  border: 1.5px solid rgba(25, 102, 255, 0.5);
-  background: rgba(25, 102, 255, 0.06);
-}
-
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(13, 31, 69, 0.9);
-  transition: opacity 0.12s ease, background 0.12s ease;
-}
-
-.cursor-ring.is-visible,
-.cursor-dot.is-visible {
-  opacity: 1;
-}
-
-.cursor-ring.is-link {
-  --cursor-scale: 1.34;
-  border-color: rgba(255, 139, 42, 0.65);
-  background: rgba(255, 139, 42, 0.14);
-}
-
-.cursor-ring.is-down {
-  --cursor-scale: 0.84;
-}
-
-.cursor-ring.is-link.is-down {
-  --cursor-scale: 1.08;
-}
-
-@media (pointer: fine) {
-  .has-custom-cursor,
-  .has-custom-cursor * {
-    cursor: none !important;
-  }
-}
-
 /* Footer store links: keep plain badges with no card background */
 .footer .store-link--footer,
 .footer .store-link--footer:hover {

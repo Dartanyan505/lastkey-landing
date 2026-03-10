@@ -24,8 +24,6 @@ const { title = "LastKey - Plansız Seyahatlerin Anahtarı" } = Astro.props;
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
-    <div class="cursor-ring" aria-hidden="true"></div>
-    <div class="cursor-dot" aria-hidden="true"></div>
     <button class="to-top up-arrow-btn" type="button" aria-label="Yukarı çık">
       <svg class="up-arrow-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M6.5 14.5 12 9l5.5 5.5" />
@@ -60,80 +58,6 @@ const { title = "LastKey - Plansız Seyahatlerin Anahtarı" } = Astro.props;
 
         toTopButton.addEventListener("click", () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-      }
-
-      const supportsFinePointer = window.matchMedia("(pointer: fine)").matches;
-      const cursorRing = document.querySelector(".cursor-ring");
-      const cursorDot = document.querySelector(".cursor-dot");
-
-      if (supportsFinePointer && cursorRing && cursorDot) {
-        document.documentElement.classList.add("has-custom-cursor");
-
-        const setDotState = (x, y) => {
-          cursorDot.style.setProperty("--cursor-x", `${x}px`);
-          cursorDot.style.setProperty("--cursor-y", `${y}px`);
-        };
-
-        const setRingState = (x, y) => {
-          cursorRing.style.setProperty("--cursor-x", `${x}px`);
-          cursorRing.style.setProperty("--cursor-y", `${y}px`);
-        };
-
-        let targetX = window.innerWidth / 2;
-        let targetY = window.innerHeight / 2;
-        let ringX = targetX;
-        let ringY = targetY;
-        let rafId = 0;
-        const ease = 0.4;
-
-        const animateRing = () => {
-          ringX += (targetX - ringX) * ease;
-          ringY += (targetY - ringY) * ease;
-          setRingState(ringX, ringY);
-          rafId = window.requestAnimationFrame(animateRing);
-        };
-
-        setDotState(targetX, targetY);
-        setRingState(ringX, ringY);
-        rafId = window.requestAnimationFrame(animateRing);
-
-        window.addEventListener("mousemove", (event) => {
-          targetX = event.clientX;
-          targetY = event.clientY;
-          setDotState(targetX, targetY);
-          cursorRing.classList.add("is-visible");
-          cursorDot.classList.add("is-visible");
-        });
-
-        window.addEventListener("mouseout", (event) => {
-          if (event.relatedTarget === null) {
-            cursorRing.classList.remove("is-visible");
-            cursorDot.classList.remove("is-visible");
-          }
-        });
-
-        window.addEventListener("mousedown", () => {
-          cursorRing.classList.add("is-down");
-        });
-
-        window.addEventListener("mouseup", () => {
-          cursorRing.classList.remove("is-down");
-        });
-
-        window.addEventListener("mouseover", (event) => {
-          const target = event.target;
-          if (!(target instanceof Element)) return;
-
-          const interactive = target.closest(
-            "a, button, summary, input, textarea, select, [data-go], [data-dir]",
-          );
-
-          cursorRing.classList.toggle("is-link", Boolean(interactive));
-        });
-
-        window.addEventListener("pagehide", () => {
-          window.cancelAnimationFrame(rafId);
         });
       }
 
