@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="LastKey | Hesap Silme Talebi">
+  <div class="page-glow" aria-hidden="true"></div>
+
+  <header class="apply-header">
+    <div class="container apply-header__inner">
+      <a class="brand" href="/" aria-label="LastKey ana sayfa">
+        <img class="brand__logo" src="/image.png" alt="LastKey" width="1600" height="444" />
+        <span class="brand__tag">Plansız seyahatlerin anahtarı</span>
+      </a>
+      <a class="btn btn--ghost" href="/">Ana Sayfaya Dön</a>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container legal">
+      <h1>LastKey Hesap Silme Talebi</h1>
+      <p>
+        LastKey kullanıcıları, hesaplarını ve ilgili kişisel verilerini silme talebini bu sayfa üzerinden
+        iletebilir. Bu sayfa, Google Play mağaza girişinde gösterilmek üzere hazırlanmıştır.
+      </p>
+
+      <section class="legal__section">
+        <h2>Silme Talebi Nasıl Oluşturulur?</h2>
+        <p>Aşağıdaki adımları takip ederek hesap silme talebinizi bize iletebilirsiniz:</p>
+        <ul>
+          <li>Ad soyadınızı girin.</li>
+          <li>LastKey hesabınızda kullandığınız e-posta adresini yazın.</li>
+          <li>Mesaj alanına hesap silme talebinizi ve varsa doğrulama için telefon numaranızı ekleyin.</li>
+          <li>Formu gönderin. Ekibimiz talebinizi inceleyip size e-posta ile dönüş yapacaktır.</li>
+        </ul>
+      </section>
+
+      <section class="legal__section">
+        <h2>Silinen Veriler</h2>
+        <p>Talebiniz onaylandığında aşağıdaki veriler silinmek üzere işleme alınır:</p>
+        <ul>
+          <li>Hesap profil bilgileri</li>
+          <li>Ad soyad, e-posta adresi ve telefon numarası gibi hesap iletişim bilgileri</li>
+          <li>Uygulama içi favoriler ve kullanıcı tercihleri</li>
+          <li>Destek talep geçmişinin hesabınızla doğrudan ilişkili bölümleri</li>
+        </ul>
+      </section>
+
+      <section class="legal__section">
+        <h2>Saklanabilecek Veriler ve Süreler</h2>
+        <p>
+          Yasal yükümlülükler, uyuşmazlık yönetimi ve finansal kayıt gereklilikleri nedeniyle bazı veriler hemen
+          silinmeyebilir.
+        </p>
+        <ul>
+          <li>Rezervasyon, fatura ve finansal kayıtlar ilgili mevzuat kapsamında en fazla 10 yıla kadar saklanabilir.</li>
+          <li>İşlem güvenliği logları ve destek kayıtları meşru menfaat ve olası uyuşmazlıklar için sınırlı bir süre tutulabilir.</li>
+          <li>Yasal saklama süresi dolan veriler silinir, yok edilir veya anonim hale getirilir.</li>
+        </ul>
+      </section>
+
+      <section class="legal__section">
+        <h2>Hesap Silme Talep Formu</h2>
+        <p>
+          Bu form LastKey ve geliştirici/operasyon ortağı Greenpoint Tour için hesap silme talebi toplamak amacıyla
+          kullanılır.
+        </p>
+
+        <form class="support-form" action="#" method="post" data-form-kind="application-support">
+          <input
+            class="hp-field"
+            type="text"
+            name="_company"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          />
+          <input type="hidden" name="supportCategory" value="Hesap Silme Talebi" />
+
+          <label class="field">
+            <span>Ad Soyad</span>
+            <input type="text" name="supportName" placeholder="Ad Soyad" required />
+          </label>
+
+          <label class="field">
+            <span>Hesap E-postası</span>
+            <input type="email" name="supportEmail" placeholder="ornek@mail.com" required />
+          </label>
+
+          <label class="field field--full">
+            <span>Talep Detayı</span>
+            <textarea
+              name="supportMessage"
+              rows="6"
+              placeholder="Hesabımın silinmesini talep ediyorum. Hesapta kayıtlı telefon numaram: ..."
+              required
+            ></textarea>
+          </label>
+
+          <div class="support-form__actions">
+            <button class="btn btn--lg" type="submit" data-idle-label="Hesap Silme Talebi Gönder">
+              Hesap Silme Talebi Gönder
+            </button>
+          </div>
+          <p class="form-status muted" data-form-status aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

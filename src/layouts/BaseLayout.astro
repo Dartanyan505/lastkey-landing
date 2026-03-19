@@ -227,6 +227,14 @@ const { title = "LastKey - Plansız Seyahatlerin Anahtarı" } = Astro.props;
           form.querySelector('textarea[name="message"]')?.value ??
           ""
         ).trim();
+        const requestCategory = (
+          form.querySelector('input[name="supportCategory"]')?.value ??
+          form.querySelector('input[name="requestCategory"]')?.value ??
+          ""
+        ).trim();
+        const messagePayload = requestCategory
+          ? `Talep Kategorisi: ${requestCategory}\n\n${message}`
+          : message;
 
         if (!fullName || !email || !message) {
           setFormStatus(form, "Lütfen zorunlu alanların tamamını doldur.");
@@ -252,7 +260,7 @@ const { title = "LastKey - Plansız Seyahatlerin Anahtarı" } = Astro.props;
             formType: "support",
             fullName,
             email,
-            message,
+            message: messagePayload,
           });
           form.reset();
           setFormStatus(form, SUCCESS_MESSAGE);
